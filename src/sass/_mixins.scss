@@ -1,18 +1,47 @@
+// $breakpoints: (
+//   small: '0px',
+//   medium: '670px',
+//   large: '968px',
+//   extralarge: '1400px'
+// ) !default;
+
 $breakpoints: (
-  small: '0px',
-  medium: '670px',
-  large: '968px',
-  extralarge: '1400px'
-) !default;
+  0: (small, 0),
+  1: (medium, 660),
+  2: (large, 860),
+  3: (extralarge, 1044)
+);
 
 
 @mixin when-breakpoint($breakpoint) {
  @each $key, $value in $breakpoints {
-    @if $breakpoint == $key {
-      @if $value == 0 {
+    $name: nth($value, 1);
+    $measure: nth($value, 2);
+    @if $breakpoint == $name {
+      @if $measure == 0 {
         @content;
       } @else {
-        @media (min-width: $value) {
+        @media (min-width: $measure+px) {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+@mixin when-breakpoint-only($breakpoint) {
+ @each $key, $value in $breakpoints {
+    $name: nth($value, 1);
+    $measure: nth($value, 2);
+    @if $breakpoint == $name {
+      $breakpoint-end: map-get($breakpoints, $key + 1);
+      $measure-end: nth($breakpoint-end, 2) - 1;
+      @if $breakpoint-end {
+        @media (min-width: $measure+px) and (max-width: $measure-end+px) {
+          @content;
+        }
+      } @else {
+        @media (min-width: $measure+px) {
           @content;
         }
       }

@@ -1,9 +1,10 @@
-.container {
+.block {
   @include container;
 }
 
 .row {
   @include break;
+  @include susy-clearfix();
 }
 
 .first {

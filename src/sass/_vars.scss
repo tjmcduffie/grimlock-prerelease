@@ -11,8 +11,12 @@ $nav-font: $source-sans-pro, sans-serif;
 $body-font: $lora, serif;
 
 /* -- Colors */
+$white: rgba(255, 255, 255, 0);
+$green: rgba(31, 231, 168, 0);
+$lightgrey: rgba(232, 232, 232, 0);
+$darkgrey: rgba(51, 51, 51, 0);
 $offwhite: adjust-lightness(white, -10);
-$darkgrey: adjust-lightness(black, 15);
+// $darkgrey: adjust-lightness(black, 15);
 
 
 
@@ -21,7 +25,7 @@ $darkgrey: adjust-lightness(black, 15);
 $base-font-size: 16px;
 
 // The base line height determines the basic unit of vertical rhythm.
-$base-line-height: 24px;
+$base-line-height: 28.8px;
 
 // The length unit in which to output vertical rhythm values.
 // Supported values: px, em, rem.
@@ -48,12 +52,19 @@ $strict-normalize: false;
 $base-font-family: $body-font;
 
 // The font sizes for h1-h6.
-$h1-font-size: 2.5   * $base-font-size;
+$h1-font-size: 2.875   * $base-font-size;
 $h2-font-size: 1.5  * $base-font-size;
-$h3-font-size: 1.17 * $base-font-size;
+$h3-font-size: 1.25 * $base-font-size;
 $h4-font-size: 1    * $base-font-size;
 $h5-font-size: 0.83 * $base-font-size;
 $h6-font-size: 0.67 * $base-font-size;
+
+$small-title: .75 * $base-font-size;
+$nav-font-size: 1.2 * $base-font-size;
+$about-summary: 1.875 * $base-font-size;
+$about-detail: 1.25 * $base-font-size;
+$project-title: 3.4 * $base-font-size;
+$project-subtitle: 1.14 * $base-font-size;
 
 // The amount lists and blockquotes are indented.
 $indent-amount: 40px;
