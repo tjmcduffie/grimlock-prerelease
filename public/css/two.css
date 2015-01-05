@@ -17,7 +17,7 @@
 /* line 106, ../../../../../../../../opt/chef/embedded/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/typography/_vertical_rhythm.scss */
 html {
   font-size: 100%;
-  line-height: 1.5em;
+  line-height: 1.8em;
 }
 
 /**
@@ -152,7 +152,7 @@ strong {
  */
 /* line 213, ../../bower_components/normalize.scss/_normalize.scss */
 blockquote {
-  margin: 1.5rem 40px;
+  margin: 1.8rem 40px;
 }
 
 /**
@@ -170,75 +170,75 @@ dfn {
 /* line 231, ../../bower_components/normalize.scss/_normalize.scss */
 h1 {
   /* Set the font-size and line-height while keeping a proper vertical rhythm. */
-  font-size: 40px;
-  font-size: 2.5rem;
-  line-height: 48px;
-  line-height: 3rem;
+  font-size: 46px;
+  font-size: 2.875rem;
+  line-height: 58px;
+  line-height: 3.6rem;
   /* Set 1 unit of vertical rhythm on the top and bottom margins. */
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 246, ../../bower_components/normalize.scss/_normalize.scss */
 h2 {
   font-size: 24px;
   font-size: 1.5rem;
-  line-height: 48px;
-  line-height: 3rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 252, ../../bower_components/normalize.scss/_normalize.scss */
 h3 {
-  font-size: 19px;
-  font-size: 1.17rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 258, ../../bower_components/normalize.scss/_normalize.scss */
 h4 {
   font-size: 16px;
   font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 264, ../../bower_components/normalize.scss/_normalize.scss */
 h5 {
   font-size: 13px;
   font-size: 0.83rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 270, ../../bower_components/normalize.scss/_normalize.scss */
 h6 {
   font-size: 11px;
   font-size: 0.67rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /**
@@ -256,7 +256,7 @@ mark {
 /* line 293, ../../bower_components/normalize.scss/_normalize.scss */
 p,
 pre {
-  margin: 1.5rem 0;
+  margin: 1.8rem 0;
 }
 
 /**
@@ -299,7 +299,7 @@ dl,
 menu,
 ol,
 ul {
-  margin: 1.5rem 0;
+  margin: 1.8rem 0;
 }
 
 /* line 345, ../../bower_components/normalize.scss/_normalize.scss */
@@ -362,7 +362,7 @@ svg:not(:root) {
  */
 /* line 412, ../../bower_components/normalize.scss/_normalize.scss */
 figure {
-  margin: 1.5rem 40px;
+  margin: 1.8rem 40px;
 }
 
 /**
@@ -576,23 +576,23 @@ fieldset {
   border-top-width: 1px;
   border-top-width: 0.0625rem;
   border-top-style: solid;
-  padding-top: 7px;
-  padding-top: 0.4625rem;
+  padding-top: 9px;
+  padding-top: 0.5675rem;
   border-bottom-width: 1px;
   border-bottom-width: 0.0625rem;
   border-bottom-style: solid;
-  padding-bottom: 15px;
-  padding-bottom: 0.9125rem;
+  padding-bottom: 18px;
+  padding-bottom: 1.1075rem;
   border-left-width: 1px;
   border-left-width: 0.0625rem;
   border-left-style: solid;
-  padding-left: 14px;
-  padding-left: 0.875rem;
+  padding-left: 17px;
+  padding-left: 1.0625rem;
   border-right-width: 1px;
   border-right-width: 0.0625rem;
   border-right-style: solid;
-  padding-right: 14px;
-  padding-right: 0.875rem;
+  padding-right: 17px;
+  padding-right: 1.0625rem;
 }
 
 /**
@@ -8848,14 +8848,14 @@ button.close {
 }
 /* site files */
 /* line 1, ../../src/sass/_grids.scss */
-.container {
+.block {
   max-width: 980px;
   max-width: 61.25rem;
   margin-left: auto;
   margin-right: auto;
 }
 /* line 12, ../../bower_components/susy/sass/susy/output/support/_clearfix.scss */
-.container:after {
+.block:after {
   content: " ";
   display: block;
   clear: both;
@@ -8865,13 +8865,19 @@ button.close {
 .row {
   clear: both;
 }
+/* line 12, ../../bower_components/susy/sass/susy/output/support/_clearfix.scss */
+.row:after {
+  content: " ";
+  display: block;
+  clear: both;
+}
 
-/* line 9, ../../src/sass/_grids.scss */
+/* line 10, ../../src/sass/_grids.scss */
 .first {
   margin-left: 0;
 }
 
-/* line 13, ../../src/sass/_grids.scss */
+/* line 14, ../../src/sass/_grids.scss */
 .last {
   float: right;
   margin-right: 0;

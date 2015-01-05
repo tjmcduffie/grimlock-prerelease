@@ -16,7 +16,7 @@
 /* line 106, ../../../../../../../../opt/chef/embedded/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/typography/_vertical_rhythm.scss */
 html {
   font-size: 100%;
-  line-height: 1.5em;
+  line-height: 1.8em;
 }
 
 /**
@@ -151,7 +151,7 @@ strong {
  */
 /* line 213, ../../bower_components/normalize.scss/_normalize.scss */
 blockquote {
-  margin: 1.5rem 40px;
+  margin: 1.8rem 40px;
 }
 
 /**
@@ -169,75 +169,75 @@ dfn {
 /* line 231, ../../bower_components/normalize.scss/_normalize.scss */
 h1 {
   /* Set the font-size and line-height while keeping a proper vertical rhythm. */
-  font-size: 40px;
-  font-size: 2.5rem;
-  line-height: 48px;
-  line-height: 3rem;
+  font-size: 46px;
+  font-size: 2.875rem;
+  line-height: 58px;
+  line-height: 3.6rem;
   /* Set 1 unit of vertical rhythm on the top and bottom margins. */
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 246, ../../bower_components/normalize.scss/_normalize.scss */
 h2 {
   font-size: 24px;
   font-size: 1.5rem;
-  line-height: 48px;
-  line-height: 3rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 252, ../../bower_components/normalize.scss/_normalize.scss */
 h3 {
-  font-size: 19px;
-  font-size: 1.17rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 258, ../../bower_components/normalize.scss/_normalize.scss */
 h4 {
   font-size: 16px;
   font-size: 1rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 264, ../../bower_components/normalize.scss/_normalize.scss */
 h5 {
   font-size: 13px;
   font-size: 0.83rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /* line 270, ../../bower_components/normalize.scss/_normalize.scss */
 h6 {
   font-size: 11px;
   font-size: 0.67rem;
-  line-height: 24px;
-  line-height: 1.5rem;
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  margin-bottom: 24px;
-  margin-bottom: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
+  margin-top: 29px;
+  margin-top: 1.8rem;
+  margin-bottom: 29px;
+  margin-bottom: 1.8rem;
 }
 
 /**
@@ -255,7 +255,7 @@ mark {
 /* line 293, ../../bower_components/normalize.scss/_normalize.scss */
 p,
 pre {
-  margin: 1.5rem 0;
+  margin: 1.8rem 0;
 }
 
 /**
@@ -298,7 +298,7 @@ dl,
 menu,
 ol,
 ul {
-  margin: 1.5rem 0;
+  margin: 1.8rem 0;
 }
 
 /* line 345, ../../bower_components/normalize.scss/_normalize.scss */
@@ -361,7 +361,7 @@ svg:not(:root) {
  */
 /* line 412, ../../bower_components/normalize.scss/_normalize.scss */
 figure {
-  margin: 1.5rem 40px;
+  margin: 1.8rem 40px;
 }
 
 /**
@@ -575,23 +575,23 @@ fieldset {
   border-top-width: 1px;
   border-top-width: 0.0625rem;
   border-top-style: solid;
-  padding-top: 7px;
-  padding-top: 0.4625rem;
+  padding-top: 9px;
+  padding-top: 0.5675rem;
   border-bottom-width: 1px;
   border-bottom-width: 0.0625rem;
   border-bottom-style: solid;
-  padding-bottom: 15px;
-  padding-bottom: 0.9125rem;
+  padding-bottom: 18px;
+  padding-bottom: 1.1075rem;
   border-left-width: 1px;
   border-left-width: 0.0625rem;
   border-left-style: solid;
-  padding-left: 14px;
-  padding-left: 0.875rem;
+  padding-left: 17px;
+  padding-left: 1.0625rem;
   border-right-width: 1px;
   border-right-width: 0.0625rem;
   border-right-style: solid;
-  padding-right: 14px;
-  padding-right: 0.875rem;
+  padding-right: 17px;
+  padding-right: 1.0625rem;
 }
 
 /**
@@ -1559,7 +1559,7 @@ select[multiple].input-lg, .form-group-lg .form-control {
 }
 
 /* line 9, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn, .block.contact a {
+.btn, .block.contact a, .contact.inner-container a {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -1580,25 +1580,25 @@ select[multiple].input-lg, .form-group-lg .form-control {
   user-select: none;
 }
 /* line 26, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .block.contact a:focus, .btn.focus, .block.contact a.focus, .btn:active:focus, .block.contact a:active:focus, .btn:active.focus, .block.contact a:active.focus, .btn.active:focus, .block.contact a.active:focus, .btn.active.focus, .block.contact a.active.focus {
+.btn:focus, .block.contact a:focus, .contact.inner-container a:focus, .btn.focus, .block.contact a.focus, .contact.inner-container a.focus, .btn:active:focus, .block.contact a:active:focus, .contact.inner-container a:active:focus, .btn:active.focus, .block.contact a:active.focus, .contact.inner-container a:active.focus, .btn.active:focus, .block.contact a.active:focus, .contact.inner-container a.active:focus, .btn.active.focus, .block.contact a.active.focus, .contact.inner-container a.active.focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 32, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .block.contact a:hover, .btn:focus, .block.contact a:focus, .btn.focus, .block.contact a.focus {
+.btn:hover, .block.contact a:hover, .contact.inner-container a:hover, .btn:focus, .block.contact a:focus, .contact.inner-container a:focus, .btn.focus, .block.contact a.focus, .contact.inner-container a.focus {
   color: #333;
   text-decoration: none;
 }
 /* line 39, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .block.contact a:active, .btn.active, .block.contact a.active {
+.btn:active, .block.contact a:active, .contact.inner-container a:active, .btn.active, .block.contact a.active, .contact.inner-container a.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 46, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .block.contact a.disabled, .btn[disabled], .block.contact a[disabled], fieldset[disabled] .btn, fieldset[disabled] .block.contact a, .block.contact fieldset[disabled] a {
+.btn.disabled, .block.contact a.disabled, .contact.inner-container a.disabled, .btn[disabled], .block.contact a[disabled], .contact.inner-container a[disabled], fieldset[disabled] .btn, fieldset[disabled] .block.contact a, .block.contact fieldset[disabled] a, fieldset[disabled] .contact.inner-container a, .contact.inner-container fieldset[disabled] a {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -1608,28 +1608,28 @@ select[multiple].input-lg, .form-group-lg .form-control {
 }
 
 /* line 60, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-default, .block.contact a {
+.btn-default, .block.contact a, .contact.inner-container a {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
 }
 /* line 11, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-default:hover, .block.contact a:hover, .btn-default:focus, .block.contact a:focus, .btn-default.focus, .block.contact a.focus, .btn-default:active, .block.contact a:active, .btn-default.active, .block.contact a.active, .open > .btn-default.dropdown-toggle, .block.contact .open > a.dropdown-toggle {
+.btn-default:hover, .block.contact a:hover, .contact.inner-container a:hover, .btn-default:focus, .block.contact a:focus, .contact.inner-container a:focus, .btn-default.focus, .block.contact a.focus, .contact.inner-container a.focus, .btn-default:active, .block.contact a:active, .contact.inner-container a:active, .btn-default.active, .block.contact a.active, .contact.inner-container a.active, .open > .btn-default.dropdown-toggle, .block.contact .open > a.dropdown-toggle, .contact.inner-container .open > a.dropdown-toggle {
   color: #333;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
 /* line 21, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-default:active, .block.contact a:active, .btn-default.active, .block.contact a.active, .open > .btn-default.dropdown-toggle, .block.contact .open > a.dropdown-toggle {
+.btn-default:active, .block.contact a:active, .contact.inner-container a:active, .btn-default.active, .block.contact a.active, .contact.inner-container a.active, .open > .btn-default.dropdown-toggle, .block.contact .open > a.dropdown-toggle, .contact.inner-container .open > a.dropdown-toggle {
   background-image: none;
 }
 /* line 29, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-default.disabled, .block.contact a.disabled, .btn-default.disabled:hover, .block.contact a.disabled:hover, .btn-default.disabled:focus, .block.contact a.disabled:focus, .btn-default.disabled.focus, .block.contact a.disabled.focus, .btn-default.disabled:active, .block.contact a.disabled:active, .btn-default.disabled.active, .block.contact a.disabled.active, .btn-default[disabled], .block.contact a[disabled], .btn-default[disabled]:hover, .block.contact a[disabled]:hover, .btn-default[disabled]:focus, .block.contact a[disabled]:focus, .btn-default[disabled].focus, .block.contact a[disabled].focus, .btn-default[disabled]:active, .block.contact a[disabled]:active, .btn-default[disabled].active, .block.contact a[disabled].active, fieldset[disabled] .btn-default, fieldset[disabled] .block.contact a, .block.contact fieldset[disabled] a, fieldset[disabled] .btn-default:hover, fieldset[disabled] .block.contact a:hover, .block.contact fieldset[disabled] a:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .block.contact a:focus, .block.contact fieldset[disabled] a:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .block.contact a.focus, .block.contact fieldset[disabled] a.focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .block.contact a:active, .block.contact fieldset[disabled] a:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .block.contact a.active, .block.contact fieldset[disabled] a.active {
+.btn-default.disabled, .block.contact a.disabled, .contact.inner-container a.disabled, .btn-default.disabled:hover, .block.contact a.disabled:hover, .contact.inner-container a.disabled:hover, .btn-default.disabled:focus, .block.contact a.disabled:focus, .contact.inner-container a.disabled:focus, .btn-default.disabled.focus, .block.contact a.disabled.focus, .contact.inner-container a.disabled.focus, .btn-default.disabled:active, .block.contact a.disabled:active, .contact.inner-container a.disabled:active, .btn-default.disabled.active, .block.contact a.disabled.active, .contact.inner-container a.disabled.active, .btn-default[disabled], .block.contact a[disabled], .contact.inner-container a[disabled], .btn-default[disabled]:hover, .block.contact a[disabled]:hover, .contact.inner-container a[disabled]:hover, .btn-default[disabled]:focus, .block.contact a[disabled]:focus, .contact.inner-container a[disabled]:focus, .btn-default[disabled].focus, .block.contact a[disabled].focus, .contact.inner-container a[disabled].focus, .btn-default[disabled]:active, .block.contact a[disabled]:active, .contact.inner-container a[disabled]:active, .btn-default[disabled].active, .block.contact a[disabled].active, .contact.inner-container a[disabled].active, fieldset[disabled] .btn-default, fieldset[disabled] .block.contact a, .block.contact fieldset[disabled] a, fieldset[disabled] .contact.inner-container a, .contact.inner-container fieldset[disabled] a, fieldset[disabled] .btn-default:hover, fieldset[disabled] .block.contact a:hover, .block.contact fieldset[disabled] a:hover, fieldset[disabled] .contact.inner-container a:hover, .contact.inner-container fieldset[disabled] a:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .block.contact a:focus, .block.contact fieldset[disabled] a:focus, fieldset[disabled] .contact.inner-container a:focus, .contact.inner-container fieldset[disabled] a:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .block.contact a.focus, .block.contact fieldset[disabled] a.focus, fieldset[disabled] .contact.inner-container a.focus, .contact.inner-container fieldset[disabled] a.focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .block.contact a:active, .block.contact fieldset[disabled] a:active, fieldset[disabled] .contact.inner-container a:active, .contact.inner-container fieldset[disabled] a:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .block.contact a.active, .block.contact fieldset[disabled] a.active, fieldset[disabled] .contact.inner-container a.active, .contact.inner-container fieldset[disabled] a.active {
   background-color: #fff;
   border-color: #ccc;
 }
 /* line 40, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-default .badge, .block.contact a .badge {
+.btn-default .badge, .block.contact a .badge, .contact.inner-container a .badge {
   color: #fff;
   background-color: #333;
 }
@@ -1798,7 +1798,7 @@ select[multiple].input-lg, .form-group-lg .form-control {
 }
 
 /* line 127, ../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .block.contact a {
+.btn-lg, .block.contact a, .contact.inner-container a {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -1887,30 +1887,36 @@ tbody.collapse.in {
 
 /* site files */
 /* line 1, ../../src/sass/_grids.scss */
-.container, .inner-container {
+.block, .inner-container {
   max-width: 1280px;
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
 }
 /* line 12, ../../bower_components/susy/sass/susy/output/support/_clearfix.scss */
-.container:after, .inner-container:after {
+.block:after, .inner-container:after {
   content: " ";
   display: block;
   clear: both;
 }
 
 /* line 5, ../../src/sass/_grids.scss */
-.row, .block {
+.row, .block, .inner-container {
+  clear: both;
+}
+/* line 12, ../../bower_components/susy/sass/susy/output/support/_clearfix.scss */
+.row:after, .block:after, .inner-container:after {
+  content: " ";
+  display: block;
   clear: both;
 }
 
-/* line 9, ../../src/sass/_grids.scss */
+/* line 10, ../../src/sass/_grids.scss */
 .first {
   margin-left: 0;
 }
 
-/* line 13, ../../src/sass/_grids.scss */
+/* line 14, ../../src/sass/_grids.scss */
 .last {
   float: right;
   margin-right: 0;
@@ -1926,7 +1932,7 @@ tbody.collapse.in {
 /* line 106, ../../../../../../../../opt/chef/embedded/lib/ruby/gems/1.9.1/gems/compass-core-1.0.1/stylesheets/compass/typography/_vertical_rhythm.scss */
 body html {
   font-size: 100%;
-  line-height: 1.5em;
+  line-height: 1.8em;
 }
 
 /* line 47, ../../src/sass/one.scss */
@@ -2161,7 +2167,7 @@ img {
 
 /* line 209, ../../src/sass/one.scss */
 .background {
-  background-color: #262626;
+  background-color: rgba(51, 51, 51, 0);
   bottom: 0px;
   left: 0px;
   position: fixed;
@@ -2204,7 +2210,7 @@ img {
   right: 0;
   top: 0;
 }
-@media (min-width: 500px) {
+@media (min-width: 660px) {
   /* line 229, ../../src/sass/one.scss */
   .header-bar {
     padding-left: 4.25532%;
@@ -2227,8 +2233,8 @@ img {
   font-style: italic;
   font-size: 19px;
   font-size: 1.2rem;
-  line-height: 24px;
-  line-height: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
   white-space: nowrap;
 }
 @media (min-width: 700px) {
@@ -2243,13 +2249,13 @@ img {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 19px;
   font-size: 1.2rem;
-  line-height: 24px;
-  line-height: 1.5rem;
+  line-height: 29px;
+  line-height: 1.8rem;
   font-weight: 600;
   text-align: right;
   text-transform: lowercase;
 }
-@media (min-width: 1200px) {
+@media (min-width: 860px) {
   /* line 262, ../../src/sass/one.scss */
   .header-bar nav {
     display: inline-block;
@@ -2263,7 +2269,7 @@ img {
   margin: 0;
   padding-left: 0;
 }
-@media (min-width: 1200px) {
+@media (min-width: 860px) {
   /* line 281, ../../src/sass/one.scss */
   .header-bar nav li {
     display: inline-block;
@@ -2279,7 +2285,7 @@ img {
   background-color: #00eecc;
   color: #008866;
 }
-@media (min-width: 1200px) {
+@media (min-width: 860px) {
   /* line 287, ../../src/sass/one.scss */
   .header-bar nav a {
     display: inline-block;
@@ -2297,7 +2303,7 @@ img {
   top: 14px;
   width: 40px;
 }
-@media (min-width: 1200px) {
+@media (min-width: 860px) {
   /* line 316, ../../src/sass/one.scss */
   .header-bar .hamburger {
     display: none;
@@ -2352,31 +2358,31 @@ img {
 }
 
 /* line 380, ../../src/sass/one.scss */
-.block {
+.block, .inner-container {
   padding: 2rem 4.25532%;
   position: relative;
   overflow: hidden;
 }
 /* line 386, ../../src/sass/one.scss */
-.block:nth-child(2n+1) {
+.block:nth-child(2n+1), .inner-container:nth-child(2n+1) {
   background-color: #15d4a5;
   color: #003b2d;
 }
 /* line 390, ../../src/sass/one.scss */
-.block:nth-child(2n+1):after {
+.block:nth-child(2n+1):after, .inner-container:nth-child(2n+1):after {
   box-shadow: inset 0px -4px 10px -4px #074939;
 }
 /* line 395, ../../src/sass/one.scss */
-.block:nth-child(2n+2) {
+.block:nth-child(2n+2), .inner-container:nth-child(2n+2) {
   background-color: #089a9f;
   color: #eee;
 }
 /* line 399, ../../src/sass/one.scss */
-.block:nth-child(2n+2):after {
+.block:nth-child(2n+2):after, .inner-container:nth-child(2n+2):after {
   box-shadow: inset 0px -4px 10px -4px #010d0d;
 }
 /* line 404, ../../src/sass/one.scss */
-.block:after {
+.block:after, .inner-container:after {
   bottom: 0;
   content: "";
   height: 10px;
@@ -2386,23 +2392,23 @@ img {
   right: -5%;
 }
 /* line 414, ../../src/sass/one.scss */
-.block :first-child {
+.block :first-child, .inner-container :first-child {
   margin-top: 0;
   padding-top: 0;
 }
 /* line 419, ../../src/sass/one.scss */
-.block :last-child {
+.block :last-child, .inner-container :last-child {
   margin-bottom: 0;
   padding-bottom: 0;
 }
 /* line 424, ../../src/sass/one.scss */
-.block img[src=""] {
+.block img[src=""], .inner-container img[src=""] {
   background-color: lightgray;
   min-height: 100%;
   min-width: 100%;
 }
 /* line 435, ../../src/sass/one.scss */
-.block.summary img {
+.block.summary img, .summary.inner-container img {
   height: 300px;
   max-width: 100%;
   -webkit-box-sizing: content-box;
@@ -2418,83 +2424,83 @@ img {
   padding-bottom: 2rem;
 }
 /* line 441, ../../src/sass/one.scss */
-.block.summary p {
+.block.summary p, .summary.inner-container p {
   margin-top: 0;
 }
 /* line 451, ../../src/sass/one.scss */
-.block.skills dt {
+.block.skills dt, .skills.inner-container dt {
   font-weight: bold;
   text-align: right;
   clear: both;
 }
 /* line 457, ../../src/sass/one.scss */
-.block.skills dd {
+.block.skills dd, .skills.inner-container dd {
   margin-left: 0;
 }
 /* line 460, ../../src/sass/one.scss */
-.block.skills dd ul {
+.block.skills dd ul, .skills.inner-container dd ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 /* line 466, ../../src/sass/one.scss */
-.block.skills dd li {
+.block.skills dd li, .skills.inner-container dd li {
   display: inline;
 }
 /* line 469, ../../src/sass/one.scss */
-.block.skills dd li:after {
+.block.skills dd li:after, .skills.inner-container dd li:after {
   content: ",";
 }
 /* line 473, ../../src/sass/one.scss */
-.block.skills dd li:last-child:after {
+.block.skills dd li:last-child:after, .skills.inner-container dd li:last-child:after {
   content: "";
 }
 /* line 482, ../../src/sass/one.scss */
-.block.work h2 {
+.block.work h2, .work.inner-container h2 {
   line-height: 1;
   margin-bottom: 1rem;
   margin-top: 0;
 }
 /* line 488, ../../src/sass/one.scss */
-.block.work img {
+.block.work img, .work.inner-container img {
   height: 300px;
   max-width: 100%;
 }
 /* line 493, ../../src/sass/one.scss */
-.block.work p {
+.block.work p, .work.inner-container p {
   margin-bottom: 0;
 }
 /* line 499, ../../src/sass/one.scss */
-.block.contact ul {
+.block.contact ul, .contact.inner-container ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 /* line 505, ../../src/sass/one.scss */
-.block.contact li {
+.block.contact li, .contact.inner-container li {
   display: inline-block;
 }
 /* line 509, ../../src/sass/one.scss */
-.block.contact a {
+.block.contact a, .contact.inner-container a {
   text-decoration: none;
   vertical-align: middle;
   white-space: nowrap;
 }
 /* line 519, ../../src/sass/one.scss */
-.block.contact i, .block.contact span {
+.block.contact i, .contact.inner-container i, .block.contact span, .contact.inner-container span {
   display: inline-block;
   vertical-align: middle;
 }
 /* line 525, ../../src/sass/one.scss */
-.block.contact i img {
+.block.contact i img, .contact.inner-container i img {
   display: inline-block;
   max-height: 1.5em;
 }
 /* line 529, ../../src/sass/one.scss */
-.block.contact i img:after {
+.block.contact i img:after, .contact.inner-container i img:after {
   content: " ";
 }
 /* line 535, ../../src/sass/one.scss */
-.block.contact legend {
+.block.contact legend, .contact.inner-container legend {
   color: inherit;
 }
