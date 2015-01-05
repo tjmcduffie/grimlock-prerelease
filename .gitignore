@@ -20,5 +20,6 @@ bower_components
 .DS_Store
 
 .sass-cache
-reports
 
+reports
+src/img/resized
