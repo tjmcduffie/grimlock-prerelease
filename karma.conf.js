@@ -20,7 +20,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // 'components/jquery/dist/jquery.js',
-      'public/js/lib/{,**/}*.js',
+      // 'public/js/lib/{,**/}*.js',
       // 'public/js/main.js',
       'spec/unit/{,**/}*.js'
     ],
@@ -28,6 +28,8 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
+      'public/js/lib/Slide*.js',
+      'spec/unit/lib/Slide*.js'
     ],
 
 
