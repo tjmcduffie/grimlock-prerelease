@@ -13,27 +13,14 @@ $susy: (
 
 $grid-padding: 100px;
 
-// $breakpoints: (
-//   small: '0px',
-//   medium: '660px',
-//   large: '860px',
-//   extralarge: '1044px'
-// );
-
 /* vendor files */
 @import 'compass/css3/transform';
 @import 'compass/css3/transition';
 @import 'compass/typography/vertical_rhythm';
-// @import '../../bower_components/normalize.scss/normalize';
 @import '../../bower_components/susy/sass/susy';
-// @import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/mixins';
-// @import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables';
-// @import '../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/buttons';
 
 /* site files */
 @import 'mixins';
-// @import 'grids';
-// @import 'layout';
 
 $green: rgba(0,136,102, 1) !default;
 $green-gray: rgba(0,238,204, 1) !default;
@@ -365,14 +352,13 @@ ul {
     }
   }
 
-
-  // @include when-breakpoint("medium") {
-  //   padding-left: (gutter() * 2);
-  //   padding-right: (gutter() * 2);
-  // }
-
   header {
     margin: 0;
+
+    @include when-breakpoint("large") {
+      margin-bottom: 9px;
+      margin-top: 10px;
+    }
 
     h1 {
       background: no-repeat inline-image("logo-large-1x.gif") center left;
@@ -448,12 +434,6 @@ ul {
     a {
       @extend .button;
       @extend .button-green;
-
-      // @include when-breakpoint("large") {
-      //   display: inline-block;
-      //   padding: 29px 15px 16px;
-      //   white-space: nowrap;
-      // }
     }
   }
 
@@ -603,7 +583,8 @@ ul {
 
   img {
     display: inline-block;
-    margin-right: .625rem;
+    margin-right: .5rem;
+    max-width: 100%;
 
     @include when-breakpoint("medium") {
       display: block;
@@ -620,17 +601,33 @@ ul {
   h1 {
     color: $green;
     display: inline-block;
-    @include adjust-font-size-to($h1-font-size);
+    @include adjust-font-size-to(2.4 * $base-font-size);
+    @include adjust-leading-to(1.319444);
     margin: 0;
     text-transform: uppercase;
+
+    @include when-breakpoint("medium") {
+      @include adjust-font-size-to($h1-font-size);
+    }
   }
 
   .subtitle {
     color: $darkgrey;
     display: block;
-    @include adjust-font-size-to($base-font-size);
-    line-height: 1;
-    margin-top: -.5rem;
+    @include adjust-font-size-to(.85 * $base-font-size);
+    @include adjust-leading-to(.472222);
+
+    &::before {
+      content: '';
+    }
+
+    @include when-breakpoint("medium") {
+      @include adjust-font-size-to($base-font-size);
+
+      &::before {
+        content: '';
+      }
+    }
   }
 
 }
@@ -732,20 +729,6 @@ ul {
         }
       }
     }
-
-    // .first, .last {
-    //   width: 45%;
-    // }
-
-    // .first {
-    //   clear: left;
-    //   float: left;
-    // }
-
-    // .last {
-    //   clear: right;
-    //   float: right;
-    // }
   }
 }
 
