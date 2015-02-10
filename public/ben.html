@@ -14,31 +14,31 @@
         <link rel="stylesheet" href="css/ben.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
         <script type="text/javascript">
-          WebFontConfig = {
-            google: { families: [ 'Source+Sans+Pro:300,600,600italic:latin', 'Lora:400,700:latin' ] }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-          })();
+          // WebFontConfig = {
+          //   google: { families: [ 'Source+Sans+Pro:300,600,600italic:latin', 'Lora:400,700:latin' ] }
+          // };
+          // (function() {
+          //   var wf = document.createElement('script');
+          //   wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          //     '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+          //   wf.type = 'text/javascript';
+          //   wf.async = 'true';
+          //   var s = document.getElementsByTagName('script')[0];
+          //   s.parentNode.insertBefore(wf, s);
+          // })();
         </script>
     </head>
     <body>
         <div class="header">
             <div class="block row">
 
-                <header class="primary sm-col-10 lg-col-7">
+                <header class="primary sm-col-10 lg-col-6">
                     <h1>Tim McDuffie</h1>
                 </header>
                 <div class="hamburger sm-last lg-hidden">
                     <span class="patty"></span>
                 </div>
-                <nav class="lg-col-5 lg-last">
+                <nav class="lg-col-6 lg-last">
                     <ul>
                         <li class="lg-hidden"><a href="#title">Home</a></li>
                         <li><a href="#about">About</a></li>
@@ -181,15 +181,15 @@
                         <div class="md-col-8 lg-col-5">
                             <h2>Shoot me an Email.</h2>
                             <p>Please reach out to me with any comments or inquiries. I can also be found on <a href="http://github.com/tjmcduffie/">Github</a> and <a href="http://www.linkedin.com/in/timmcduffie/">LinkedIn</a>.</p>
-                            <form method="post" action="">
+                            <form method="post" action="/foo" novalidate>
                                 <fieldset>
                                     <legend>Contact message</legend>
-                                    <label><input id="name" type="text" value="" placeholder="Name" required> <span>Name (required)</span></label>
-                                    <label><input id="email" type="email" value="" placeholder="Email" required> <span>Email (required)</span></label>
-                                    <label><textarea id="message" placeholder="Message" required></textarea> <span>Message (required)</span></label>
+                                    <label><input id="name" type="text" value="" placeholder="Name" patttern="/fo(o)/" required data-error-message="no name"> <span>Name (required)</span></label>
+                                    <label><input id="email" type="email" value="" placeholder="Email" required data-error-message="thats not an email"> <span>Email (required)</span></label>
+                                    <label><textarea id="message" placeholder="Message" required data-error-message="say somethign!"></textarea> <span>Message (required)</span></label>
                                 </fieldset>
                                 <span class="submit-button">
-                                    <input id="name" type="submit" value="Send it along">
+                                    <input id="submit" type="submit" value="Send it along">
                                 </span>
                             </form>
                         </div>
@@ -203,83 +203,16 @@
             </ul>
         </footer>
 
-        <script>
-            var header = document.querySelector('.header');
-            var hamburger = header.querySelector('.hamburger');
-            var nav = header.querySelector('nav');
-            var navExpandedClassName = 'expanded';
+        <script src="js/tmcd.js"></script>
+        <!--script src="js/vendor/q/q.js"></script>
+        <script src="js/templates/contact-form-errors.js"></script>
+        <script src="js/lib/animation/Animation.js"></script>
+        <script src="js/lib/ui/Nav.js"></script>
+        <script src="js/lib/ui/ParallaxScroller.js"></script>
+        <script src="js/lib/event/EventEmitter.js"></script>
+        <script src="js/lib/form/Validator.js"></script>
+        <script src="js/lib/form/AjaxForm.js"></script-->
 
-            var hamburgerClickHandler = function() {
-                var n;
-
-                if (header.className.indexOf(navExpandedClassName) === -1) {
-                    if (header.className.length > 0) {
-                        // add it to the classlist
-                        n = header.className.split(' ')
-                        n.push(navExpandedClassName);
-                        header.className = n.join(' ');
-                    } else {
-                        // set the string value if the length is 0
-                        header.className = navExpandedClassName;
-                    }
-
-                } else {
-                    header.className = header.className.replace(navExpandedClassName, '').trim();
-                }
-            }
-
-            var navClickHandler = function(e) {
-                var destElem;
-
-                if (e.target.tagName === "A") {
-                    e.preventDefault();
-
-                    destElem = document.querySelector(e.target.getAttribute('href'));
-                    hamburgerClickHandler();
-                    // scrollToElement(e.target.getAttribute('href'), 1250);
-                    console.log('animating');
-                    scrollToElement(document.body, destElem.offsetTop, 1250);
-                }
-            };
-
-            function scrollToElement(element, to, duration) {
-                var start = element.scrollTop;
-                var change = to - start;
-                var currentTime = 0;
-                var increment = 20;
-
-                var animate = function(){
-                    currentTime += increment;
-                    element.scrollTop = Math.easeInOutQuad(currentTime, start, change, duration);
-
-                    if(currentTime < duration) {
-                        setTimeout(animate, increment);
-                    }
-                };
-
-                animate();
-            }
-
-            Math.easeInOutQuad = function (time, start, change, duration) {
-                time /= duration / 2;
-                if (time < 1) {
-                    return change / 2 * time * time + start;
-                }
-
-                time--;
-                return -change / 2 * (time * (time - 2) - 1) + start;
-            };
-
-
-
-            hamburger.addEventListener('click', hamburgerClickHandler);
-            nav.addEventListener('click', navClickHandler);
-        </script>
-
-        <!-- build:js public/js/site.js -->
-        <!--script src="js/plugins.js"></script-->
-        <!--script src="js/main.js"></script-->
-        <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <!--script>
@@ -292,3 +225,4 @@
         </script-->
     </body>
 </html>
+
