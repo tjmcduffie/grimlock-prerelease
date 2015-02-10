@@ -32,13 +32,21 @@ module.exports = function(grunt) {
       }
     },
 
+    browserify: {
+      dist: {
+        files: {
+          'public/js/tmcd.js': ['public/js/main.js']
+        }
+      }
+    },
+
     jshint: {
       options: grunt.file.readJSON('.jshintrc'),
       gruntfile: {
         src: ['Gruntfile.js']
       },
       client: {
-        src: ['public/js/{,**/}*.js', '!public/js/vendor/{,**/}*.js']
+        src: ['public/js/{,**/}*.js', '!public/js/tmcd.js', '!public/js/{vendor,polyfill}/{,**/}*.js']
       },
       spec: {
         options: {
@@ -157,7 +165,7 @@ module.exports = function(grunt) {
       },
       clientjs: {
         files: '<%= jshint.client.src %>',
-        tasks: ['jshint:client', 'karma'],
+        tasks: ['jshint:client', 'karma', 'browserify'],
         options: {
           livereload: true
         }
@@ -195,6 +203,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-bower');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -203,8 +212,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
 
   // Default task.
-  grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep','jshint', 'karma:unit', 'connect:site',
-      'watch']);
+  grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep','jshint', 'karma:unit', 'browserify',
+      'connect:site', 'watch']);
   grunt.registerTask('imageprep', ['newer:responsive_images:backgrounds', 'newer:imagemin:backgrounds']);
 
 };
