@@ -9,7 +9,6 @@
     "jasmine": "~2.0.4"
   },
   "dependencies": {
-    "normalize.scss": "~3.0.1+normalize.3.0.1",
     "susy": "~2.1.3",
     "bootstrap-sass-official": "~3.3.0"
   }
