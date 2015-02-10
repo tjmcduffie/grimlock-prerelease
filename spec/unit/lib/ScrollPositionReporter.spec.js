@@ -1,5 +1,5 @@
 
-describe('Scroll position reporter', function() {
+xdescribe('Scroll position reporter', function() {
 
   // inject fixture
   var testDiv = document.createElement('div');
