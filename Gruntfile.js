@@ -27,15 +27,15 @@ module.exports = function(grunt) {
         banner: '<%= banner %>'
       },
       clientjs: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'deploy/public/js<%= pkg.name %>.<%= pkg.version %>.min.js'
+        src: 'public/js/<%= pkg.title || pkg.name %>.js',
+        dest: 'deploy/public/js<%= pkg.version %>.<%= pkg.version %>-<%= pkg.version %>.min.js'
       }
     },
 
     browserify: {
       dist: {
         files: {
-          'public/js/tmcd.js': ['public/js/main.js']
+          'public/js/<%= pkg.title || pkg.name %>.js': ['src/js/main.js']
         }
       }
     },
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
         src: ['Gruntfile.js']
       },
       client: {
-        src: ['public/js/{,**/}*.js', '!public/js/tmcd.js', '!public/js/{vendor,polyfill}/{,**/}*.js']
+        src: ['src/js/{,**/}*.js', '!src/js/{vendor,polyfill}/{,**/}*.js']
       },
       spec: {
         options: {
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
     bower: {
       client: {
         dest: 'src/sass/vendor',
-        js_dest: 'public/js/vendor',
+        js_dest: 'src/js/vendor',
         css_dest: 'public/css/vendor',
         options: {
           ignorePackages: ['jasmine']
