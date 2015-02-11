@@ -16,14 +16,11 @@ var Form = function (formElement) {
 
 Form.events = {
   HANDLE_SUBMIT: 'handle-submit',
-  // SUBMIT_SUCCESS: 'submit.success',
-  // SUBMIT_FAIL: 'submit.fail',
   VALIDATE_SUCCESS: 'validate.success',
   VALIDATE_FAIL: 'validate.fail'
 };
 
 Form.prototype.handleSumbit_ = function (e) {
-  e.preventDefault();
   this.errors = [];
   this.eventEmitter_.emit(Form.events.HANDLE_SUBMIT, e);
 

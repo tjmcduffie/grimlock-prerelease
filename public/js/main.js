@@ -32,7 +32,7 @@ headerParallax.setRecipientOffset(elemStartY);
 /**
  * Form Validation and submission.
  */
-var Form = require('./lib/form/Form');
+var Form = require('./lib/form/AjaxForm');
 var contactFormErrors = require('./templates/contact-form-errors');
 
 var contactForm = new Form(document.querySelector('#contact form'));
@@ -59,8 +59,17 @@ contactForm
     }.bind(contactForm));
 
 
-module.exports = {
+/**
+ * Expose Publicly
+ */
+var TMCD = {
   nav: nav,
   header: headerParallax,
   form: contactForm
 };
+
+if (window) {
+    window.TMCD = TMCD;
+}
+
+module.exports = TMCD;

@@ -1,9 +1,9 @@
 'use strict';
 
-var easeInOutQuad = require('./ease-in-out');
+var easeInOut = require('./ease-in-out');
 
 
-module.exports = function scrollToElement(element, to, duration) {
+module.exports = function scrollElementTo(element, to, duration) {
     var start = element.scrollTop;
     var change = to - start;
     var currentTime = 0;
@@ -11,7 +11,7 @@ module.exports = function scrollToElement(element, to, duration) {
 
     var animate = function(){
         currentTime += increment;
-        element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
+        element.scrollTop = easeInOut(currentTime, start, change, duration);
 
         if(currentTime < duration) {
             setTimeout(animate, increment);

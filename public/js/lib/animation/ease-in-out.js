@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function easeInOutQuad(time, start, change, duration) {
+module.exports = function easeInOut(time, start, change, duration) {
     time /= duration / 2;
     if (time < 1) {
         return change / 2 * time * time + start;
