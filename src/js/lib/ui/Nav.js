@@ -1,7 +1,7 @@
 /* jshint browser:true */
 'use strict';
 
-var scrollToElement = require('../animation/scroll-element-to');
+var scrollToElement = require('../animation/scrollElementTo');
 
 var Nav = function(containerElement, triggerSelector, targetSelector, expandedClassName) {
     this.container_ = containerElement;

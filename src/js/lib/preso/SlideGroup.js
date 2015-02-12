@@ -25,3 +25,5 @@ SlideGroup.prototype.removeSlide = function (slide) {
 
   return (removed.length > 0);
 };
+
+module.exports = SlideGroup;

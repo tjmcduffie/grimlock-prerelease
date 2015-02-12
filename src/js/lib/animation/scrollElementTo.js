@@ -1,6 +1,6 @@
 'use strict';
 
-var easeInOut = require('./ease-in-out');
+var easeInOut = require('./easeInOut');
 
 
 module.exports = function scrollElementTo(element, to, duration) {

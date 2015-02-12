@@ -1,8 +1,8 @@
-/* global EventEmitter */
 /**
  * @fileoverview
- * @requires  EventEmitter
  */
+
+var EventEmitter = require('events').EventEmitter;
 
 /**
  * Slide constructor
@@ -47,3 +47,5 @@ Slide.prototype.deactivate = function () {
 
   return this.isActive_;
 };
+
+module.exports = Slide;
