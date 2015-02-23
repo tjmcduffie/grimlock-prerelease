@@ -11,6 +11,12 @@ module.exports = function scrollElementTo(element, to, duration) {
 
     var animate = function(){
         currentTime += increment;
+
+        if (!duration || currentTime >= duration) {
+            element.scrollTop = to;
+            return;
+        }
+
         element.scrollTop = easeInOut(currentTime, start, change, duration);
 
         if(currentTime < duration) {
