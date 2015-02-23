@@ -18,7 +18,7 @@ var Slide = function () {
 
   var self = this;
 
-  Slide.observer.listen('slide.activate', function(slide) {
+  Slide.observer.addListener('slide.activate', function(slide) {
     if (slide !== self) {
       self.deactivate();
     }
@@ -33,7 +33,7 @@ Slide.observer = new EventEmitter();
  */
 Slide.prototype.activate = function () {
   this.isActive_ = true;
-  Slide.observer.broadcast('slide.activate', this);
+  Slide.observer.emit('slide.activate', this);
 
   return this.isActive_;
 };
