@@ -179,12 +179,12 @@
                         <div class="md-col-8 lg-col-5">
                             <h2>Shoot me an Email.</h2>
                             <p>Please reach out to me with any comments or inquiries. I can also be found on <a href="http://github.com/tjmcduffie/">Github</a> and <a href="http://www.linkedin.com/in/timmcduffie/">LinkedIn</a>.</p>
-                            <form method="post" action="/foo" novalidate>
+                            <form method="post" action="/contact/send_mail.php" novalidate>
                                 <fieldset>
                                     <legend>Contact message</legend>
-                                    <label><input id="name" type="text" value="" placeholder="Name" patttern="/fo(o)/" required data-error-message="no name"> <span>Name (required)</span></label>
-                                    <label><input id="email" type="email" value="" placeholder="Email" required data-error-message="thats not an email"> <span>Email (required)</span></label>
-                                    <label><textarea id="message" placeholder="Message" required data-error-message="say somethign!"></textarea> <span>Message (required)</span></label>
+                                    <label><input id="name" name="name" type="text" value="" placeholder="Name" patttern="/fo(o)/" required data-error-message="no name"> <span>Name (required)</span></label>
+                                    <label><input id="email" name="email" type="email" value="" placeholder="Email" required data-error-message="thats not an email"> <span>Email (required)</span></label>
+                                    <label><textarea id="message" name="message" placeholder="Message" required data-error-message="say somethign!"></textarea> <span>Message (required)</span></label>
                                 </fieldset>
                                 <span class="submit-button">
                                     <input id="submit" type="submit" value="Send it along">
