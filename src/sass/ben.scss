@@ -518,41 +518,43 @@ ul {
     }
   }
 
-  &.expanded {
-    background-color: transparentize($green, 0.07);
-    height: 100%;
+  @include when-below-breakpoint('large') {
+    &.expanded {
+      background-color: transparentize($green, 0.07);
+      height: 100%;
 
-    .block {
-      margin-left: 0;
-      margin-right: 0;
-      padding-left: 2%;
-      padding-right: 2%;
-    }
+      .block {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 2%;
+        padding-right: 2%;
+      }
 
-    h1 {
-      color: $white;
-    }
+      h1 {
+        color: $white;
+      }
 
-    nav {
-      display: block;
-      padding-top: 25px;
-    }
+      nav {
+        display: block;
+        padding-top: 25px;
+      }
 
-    .hamburger {
+      .hamburger {
 
-      .patty {
-        background-color: transparent;
+        .patty {
+          background-color: transparent;
 
-        &::before, &::after {
-          background-color: $white;
-        }
+          &::before, &::after {
+            background-color: $white;
+          }
 
-        &::before {
-          @include transform(rotate(45deg) translate3d(0, 0, 0));
-        }
+          &::before {
+            @include transform(rotate(45deg) translate3d(0, 0, 0));
+          }
 
-        &::after {
-          @include transform(rotate(-45deg) translate3d(0, -$patty-size, 0));
+          &::after {
+            @include transform(rotate(-45deg) translate3d(0, -$patty-size, 0));
+          }
         }
       }
     }

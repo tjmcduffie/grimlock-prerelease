@@ -49,6 +49,22 @@ $breakpoints: (
   }
 }
 
+@mixin when-below-breakpoint($breakpoint) {
+ @each $key, $value in $breakpoints {
+    $name: nth($value, 1);
+    $measure: nth($value, 2);
+    @if $breakpoint == $name {
+      @if $measure == 0 {
+        @content;
+      } @else {
+        @media (max-width: $measure+px) {
+          @content;
+        }
+      }
+    }
+  }
+}
+
 @mixin position($type: relative, $top: 0px, $right: null, $bottom: null, $left: null) {
 // @mixin position($type, $coords) {
 
