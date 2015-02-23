@@ -35,7 +35,8 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         files: {
-          'public/js/<%= pkg.title || pkg.name %>.js': ['src/js/main.js']
+          'public/js/<%= pkg.title || pkg.name %>.js': ['src/js/main.js'],
+          'src/js/polyfill/browserify/require.bs.js': ['src/js/polyfill/browserify/require.js']
         }
       }
     },
@@ -84,28 +85,68 @@ module.exports = function(grunt) {
       site: {
         options: {
           port: 3001,
-          hostname: '*',
+          hostname: '127.0.0.1',
           base: ['public'],
           directory: 'public',
-          // keepalive: false,
           debug: true,
           livereload: 3002,
-          open: true
+          open: true,
+          middleware: function (/*connect, options, middlewares*/) {
+            var middlewares = arguments[2];
+            middlewares.unshift(require('grunt-connect-proxy/lib/utils').proxyRequest);
+            return middlewares;
+          }
+        },
+        proxies: [{
+          context: '/contact/send_mail.php',
+          host: '<%= php.mailserver.options.hostname %>',
+          port: '<%= php.mailserver.options.port %>',
+          rewrite: {
+            '^/foo': ''
+          }
+        }]
+      }
+    },
+
+    php: {
+      mailserver: {
+        options: {
+          hostname: '127.0.0.1',
+          port: 3003,
+          base: 'public'
         }
       }
     },
 
     karma: {
       options: {
-        configFile: 'karma.conf.js'
+        files:[
+          'src/js/polyfill/{,**/}*.js',
+          'spec/unit/{,**/}*.js'
+        ],
+        port: 9876,
+        singleRun: true,
+        browsers: [],
+        reporters: [],
+        logLevel: 'INFO',
+        frameworks: ['browserify', 'jasmine-ajax', 'jasmine'],
+        preprocessors: {
+          'spec/unit/{,**/}*.js': [ 'browserify' ],
+          'src/js/{,lib/**/}*.js': ['coverage']
+        },
+        coverageReporter: {
+          type : 'html',
+          dir : 'artifacts/coverage/'
+        },
+        browserify: {
+          debug: true
+        },
+        colors: true,
+        autoWatch: false
       },
       unit: {
         browsers: ['PhantomJS'],
         reporters: ['progress']
-      // },
-      // integration: {
-      // },
-      // functional: {
       }
     },
 
@@ -195,6 +236,10 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.task.registerTask('cleanup', 'Cleans up tmp files', function () {
+    grunt.log.writeln('Cleaning up now');
+  });
+
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-compass');
@@ -207,13 +252,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('grunt-php');
 
   // Default task.
-  grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep','jshint', 'karma:unit', 'browserify',
-      'connect:site', 'watch']);
+  grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep', 'test', 'browserify', 'serve',
+      'watch', 'cleanup']);
+
+  // sub tasks
+  grunt.registerTask('serve', ['php:mailserver', 'configureProxies:site', 'connect:site']);
   grunt.registerTask('imageprep', ['newer:responsive_images:backgrounds', 'newer:imagemin:backgrounds']);
+  grunt.registerTask('test', ['jshint', 'karma:unit']);
 
 };

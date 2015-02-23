@@ -16,11 +16,12 @@ results
 npm-debug.log
 node_modules
 bower_components
+vendor
 
 .DS_Store
 
 .sass-cache
 
-reports
+artifacts/reports
 src/img/resized
 public/js/grimlock-prerelease*.js
