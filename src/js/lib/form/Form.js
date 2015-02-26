@@ -2,6 +2,7 @@
 
 var EventEmitter = require('events').EventEmitter;
 var Validator = require('./Validator');
+var FormError = require('./FormError');
 
 
 var Form = function (formElement) {
@@ -15,7 +16,7 @@ var Form = function (formElement) {
 };
 
 Form.events = {
-  HANDLE_SUBMIT: 'handle-submit',
+  HANDLE_SUBMIT: 'submit.init',
   VALIDATE_SUCCESS: 'validate.success',
   VALIDATE_FAIL: 'validate.fail'
 };
@@ -34,22 +35,17 @@ Form.prototype.handleSumbit_ = function (e) {
 };
 
 Form.prototype.isValid_ = function() {
-  console.log('validating');
   Array.prototype.map.call(this.inputs_, function(elem) {
     var type = null;
 
     if (Validator.isRequired(elem) && !Validator.isPopulated(elem)) {
-      type = 'required';
+      type = FormError.tpye.REQUIREMENT;
     } else if (Validator.hasPattern(elem) && !Validator.isMatchingPattern(elem)) {
-      type = 'pattern';
+      type = FormError.tpye.PATTERN;
     }
 
     if (type) {
-      this.errors.push({
-        type: type,
-        elem: elem,
-        message: elem.dataset.errorMessage || ''
-      });
+      this.errors.push(new FormError(type, elem.dataset.errorMessage, elem));
     }
   }.bind(this));
   return this.errors.length === 0 ? true : false;
@@ -62,6 +58,11 @@ Form.prototype.reportErrors_ = function () {
 Form.prototype.on = function (event, callback) {
   this.eventEmitter_.addListener(event, callback);
   return this;
+};
+
+Form.prototype.destroy = function () {
+  this.elem.removeEventListener('submit');
+  this.elem.remove();
 };
 
 module.exports = Form;
