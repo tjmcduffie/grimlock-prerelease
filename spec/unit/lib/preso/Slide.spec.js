@@ -1,4 +1,5 @@
 describe('The Slide', function () {
+  var Slide = require('../../../../src/js/lib/preso/Slide');
   var slide;
 
   beforeEach(function() {
