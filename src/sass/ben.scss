@@ -530,6 +530,10 @@ ul {
         padding-right: 2%;
       }
 
+      header {
+        transform: translate3d(0px, 0px, 0px) !important;
+      }
+
       h1 {
         color: $white;
       }
