@@ -33,6 +33,11 @@ module.exports = function(grunt) {
     },
 
     browserify: {
+      options: {
+        browserifyOptions: {
+           debug: true
+        }
+      },
       dist: {
         files: {
           'public/js/<%= pkg.title || pkg.name %>.js': ['src/js/main.js'],
