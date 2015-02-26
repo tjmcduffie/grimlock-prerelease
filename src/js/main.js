@@ -34,29 +34,36 @@ headerParallax.setRecipientOffset(elemStartY);
  */
 var Form = require('./lib/form/AjaxForm');
 var contactFormErrors = require('./templates/contact-form-errors');
+var contactFormSuccess = require('./templates/contact-form-success');
 
 var contactForm = new Form(document.querySelector('#contact form'));
 contactForm
     .on(Form.events.HANDLE_SUBMIT, function () {
-        // clear
-        console.log('clearing errors');
-        console.dir(this.elem.previousElementSibling);
-        console.log(this.elem.previousElementSibling.tagName === 'UL' &&
-            this.elem.previousElementSibling.className === 'errors');
-        if (this.elem.previousElementSibling.tagName === 'UL' &&
-            this.elem.previousElementSibling.className === 'errors') {
-            this.elem.previousElementSibling.remove();
+        console.log('handling sumbission');
+        var sibling = this.elem.previousElementSibling;
+        if (sibling.tagName === 'UL' && sibling.className === 'errors') {
+            sibling.remove();
         }
-
     }.bind(contactForm))
-    .on(Form.events.VALIDATE_FAIL, function () {
-        console.log('validation failed with errors', this.errors);
 
-        // this should render a template instead of generate a string.
+    .on(Form.events.VALIDATE_FAIL, function () {
+        console.log('validation failed');
         var errorsList = contactFormErrors(this.errors);
         this.elem.parentNode.insertBefore(errorsList, this.elem);
+    }.bind(contactForm))
 
-    }.bind(contactForm));
+    .on(Form.events.SUBMIT_FAIL, function () {
+        console.log('submission failed');
+        var errorsList = contactFormErrors(this.errors);
+        this.elem.parentNode.insertBefore(errorsList, this.elem);
+    }.bind(contactForm))
+
+    .on(Form.events.SUBMIT_SUCCESS, function () {
+        console.log('submission succeeded');
+        var successMessage = contactFormSuccess();
+        contactForm.elem.parentElement.insertBefore(successMessage, contactForm.elem);
+        contactForm.destroy();
+    });
 
 
 /**
