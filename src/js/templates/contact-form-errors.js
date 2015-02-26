@@ -5,8 +5,9 @@ module.exports = function(errors) {
   var errorsList = document.createElement('ul');
   errorsList.className = 'errors';
 
-  errors.map(function(err) {
-      var name = err.elem.name.charAt(0).toUpperCase();
+  errors.forEach(function(err) {
+
+      var name = err.elem ? err.elem.name.charAt(0).toUpperCase() : '';
       var li = document.createElement('li');
       var message;
 
@@ -17,6 +18,8 @@ module.exports = function(errors) {
         case 'pattern':
           message = err.message || 'Please enter a valid ' + name;
           break;
+        default:
+          message = err.message;
       }
 
       li.appendChild(document.createTextNode(message));
