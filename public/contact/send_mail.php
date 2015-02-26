@@ -3,7 +3,10 @@
 require '../../vendor/autoload.php';
 require '../../src/php/MailResults.php';
 
+$logger = new Katzgrau\KLogger\Logger(dirname(dirname(dirname(__FILE__))).'/logs');
+
 date_default_timezone_set('Etc/UTC');
+header('Content-Type: application/json');
 
 
 /**
@@ -16,9 +19,22 @@ $acceptable_origins = array(
   'http://127.0.0.1:3001'
 );
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' || in_array($_SERVER['HTTP_ORIGIN'], $acceptable_origins)) {
-  // header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
-  http_response_code(404);
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !in_array($_SERVER['HTTP_ORIGIN'], $acceptable_origins)) {
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+  }
+
+  if (!in_array($_SERVER['HTTP_ORIGIN'], $acceptable_origins)) {
+    http_response_code(403);
+  }
+
+  $access_details = array(
+    'method' => $_SERVER['REQUEST_METHOD'],
+    'origin' => $_SERVER['HTTP_ORIGIN']
+  );
+
+  $logger->warning('attempt to access from unapproved method or origin: ', $access_details);
+
   exit();
 }
 
@@ -26,8 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || in_array($_SERVER['HTTP_ORIGIN'], $
 /**
  * Set appropriate headers and populate POST data/
  */
-header('Content-Type: application/json');
-
 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -72,13 +86,17 @@ $mail->addAddress('contact@timmcduffie.com', 'Tim McDuffie');
 $mail->Subject = 'Website contact from: ' . $name;
 $mail->Body = $message;
 
+http_response_code(200);
+
 
 /**
  * Send response.
  */
 if(!$mail->send())
 {
-  $results->addError($mail->ErrorInfo);
+  http_response_code(500);
+  $results->addError('We encountered an unexpected are unable to send your message. Please try again.');
+  $logger->error('Mail failed to send', array($mail->ErrorInfo));
 }
 
 echo $results->jsoninfy();
