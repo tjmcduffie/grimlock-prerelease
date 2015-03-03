@@ -32,7 +32,7 @@ Validator.isMatchingPattern = function (element) {
   var pattern = (element.pattern || Validator.typePatterns[element.type]);
 
   if (!pattern) {
-    console.log('no pattern available to value against');
+    console.log('no pattern available to test value against');
     return true;
   }
 
