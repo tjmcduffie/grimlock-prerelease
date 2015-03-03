@@ -361,7 +361,7 @@ ul {
     }
 
     h1 {
-      background: no-repeat inline-image("logo-large-1x.gif") center left;
+      background: no-repeat inline-image("logo.png") center left;
       background-size: contain;
       color: $green;
       @include adjust-font-size-to(1.25 * $base-font-size);
@@ -656,7 +656,7 @@ ul {
     }
 
     a {
-      background: no-repeat inline-image("cv-icon-large-1x.gif")  center left;
+      background: no-repeat inline-image("icons/cv-icon.png")  center left;
       color: $green;
       display: block;
       font-weight: bold;
@@ -771,7 +771,7 @@ ul {
       white-space: nowrap;
 
       &:after {
-        content: inline-image("external-link-icon-large-1x.gif");
+        content: inline-image("icons/external-link-icon.png");
         display: inline-block;
         margin-left: 10px;
         vertical-align: baseline;
