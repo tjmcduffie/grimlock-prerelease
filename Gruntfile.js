@@ -11,27 +11,6 @@ module.exports = function(grunt) {
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;*/\n',
     // Task configuration.
 
-    concat: {
-      options: {
-        banner: '<%= banner %>',
-        stripBanners: true
-      },
-      dist: {
-        src: ['public/js/<%= pkg.name %>.js'],
-        dest: 'deploy/public/js<%= pkg.name %>.<%= pkg.version %>.js'
-      }
-    },
-
-    uglify: {
-      options: {
-        banner: '<%= banner %>'
-      },
-      clientjs: {
-        src: 'public/js/<%= pkg.title || pkg.name %>.js',
-        dest: 'deploy/public/js<%= pkg.version %>.<%= pkg.version %>-<%= pkg.version %>.min.js'
-      }
-    },
-
     browserify: {
       options: {
         browserifyOptions: {
@@ -68,6 +47,7 @@ module.exports = function(grunt) {
         sassDir: 'src/sass',
         cssDir: 'public/css',
         imagesDir: 'public/img',
+        httpImagesPath: '/img',
         javascriptsDir: 'public/js',
         outputStyle: 'expanded',
         noLineComments: false,
@@ -90,7 +70,7 @@ module.exports = function(grunt) {
       site: {
         options: {
           port: 3001,
-          hostname: '127.0.0.1',
+          hostname: '*',
           base: ['public'],
           directory: 'public',
           debug: true,
@@ -167,9 +147,32 @@ module.exports = function(grunt) {
     },
 
     responsive_images: {
-      backgrounds: {
+      favicon: {
         options: {
-          newFilesOnly: true,
+          newFilesOnly: false,
+          sizes: [
+            {name: '32', width: 32, quality: 32},
+            {name: '57', width: 57, quality: 57},
+            {name: '72', width: 72, quality: 72},
+            {name: '96', width: 96, quality: 96},
+            {name: '120', width: 120, quality: 120},
+            {name: '128', width: 128, quality: 128},
+            {name: '144', width: 144, quality: 144},
+            {name: '152', width: 152, quality: 152},
+            {name: '195', width: 195, quality: 195},
+            {name: '228', width: 228, quality: 228}
+          ]
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/img/to-resize/favicon/',
+          src: '{,**/}*',
+          dest: 'src/img/to-optimize/favicon'
+        }]
+      },
+      content: {
+        options: {
+          newFilesOnly: false,
           sizes: [
             {name: 'xlarge-2x', width: 3264, quality: 30},
             {name: 'xlarge-1x', width: 1632, quality: 30},
@@ -183,21 +186,124 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'src/img/original/',
+          cwd: 'src/img/to-resize/work',
           src: '{,**/}*',
-          dest: 'src/img/resized'
+          dest: 'src/img/to-optimize/work'
         }]
       }
     },
 
     imagemin: {
-      backgrounds: {
+      all: {
         files: [{
           expand: true,
-          cwd: 'src/img/resized/',
-          src: '{,**/}*',
+          cwd: 'src/img/to-optimize',
+          src: '{,**/}*.{png,jpg,gif}',
           dest: 'public/img'
         }]
+      }
+    },
+
+    copy: {
+      deploy: {
+        files: [{
+          expand: true,
+          src: ['public/**', 'vendor/**', 'src/**'],
+          dest: 'deploy/build'
+        }]
+      },
+      release: {
+        src: 'deploy/build',
+        dest: '<%= grunt.template.today("yyyy-mm-dd-hh::MM::ss") %>-v<%= pkg.version %>'
+      }
+    },
+
+    clean: {
+      deploy: ['deploy/build'],
+    },
+
+    bump: {
+      options: {
+        prereleaseName: 'rc'
+      }
+    },
+
+    prompt: {
+      bump: {
+        options: {
+          questions: [{
+            config: 'deploy.bump',
+            type: 'list',
+            message: 'What type of release are you creating?',
+            choices: ['patch', 'minor', 'major', 'prerelease', 'prepatch', 'preminor', 'premajor', 'git']
+          }]
+        }
+      },
+      deploy: {
+        options: {
+          questions: [{
+            config: 'deploy.env',
+            type: 'list',
+            message: 'What environment are you releasing to?',
+            choices: ['dev', 'prod']
+          },{
+            config: 'scp.options.username',
+            type: 'input',
+            message: 'Please enter the username for hte remote machine.'
+          }]
+        }
+      }
+    },
+
+    scp: {
+      options: {
+        hostname: 'tmcduffie.com'
+      },
+      prod: {
+        files: [{
+          cwd: 'deploy/<%= copy.release.dest %>',
+          src: '**/*',
+          dest: '~/timmcduffie.com/prerelease/<%= copy.release.dest %>'
+        }]
+      },
+      dev: {
+        files: [{
+          cwd: 'deploy/<%= copy.release.dest %>',
+          src: '**/*',
+          dest: '~/dev.timmcduffie.com/prerelease/<%= copy.release.dest %>'
+        }]
+      }
+    },
+
+    uglify: {
+      options: {
+        banner: '<%= banner %>',
+        report: 'gzip',
+        screwIE8: true,
+        compress: {
+          drop_console: true,
+          dead_code: true,
+          drop_debugger: true,
+          warnings: true
+        }
+      },
+      clientjs: {
+        files: {
+          'deploy/public/js/<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.js':
+              ['deploy/public/js/<%= pkg.title || pkg.name %>.js']
+        }
+      }
+    },
+
+    cssmin: {
+      options: {
+        report: 'gzip'
+      },
+      css: {
+        files: {
+          'deploy/public/css/<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.css':
+              ['deploy/public/css/ben.css']
+        }
       }
     },
 
@@ -231,37 +337,39 @@ module.exports = function(grunt) {
         tasks: ['compass:dev']
       },
       image_resize: {
-        files: 'src/img/original/{,**/}*',
-        tasks: ['newer:responsive_images:backgrounds']
+        files: 'src/img/to-resize/{,**/}*{png,jpg,gif}',
+        tasks: ['newer:responsive_images']
       },
       image_opt: {
-        files: 'src/img/resized/{,**/}*',
-        tasks: ['newer:imagemin:backgrounds']
+        files: 'src/img/to-optimize/{,**/}*{png,jpg,gif}',
+        tasks: ['newer:imagemin']
       }
     }
   });
 
-  grunt.task.registerTask('cleanup', 'Cleans up tmp files', function () {
-    grunt.log.writeln('Cleaning up now');
-  });
-
   // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-bower');
   grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-connect-proxy');
-  grunt.loadNpmTasks('grunt-responsive-images');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-php');
+  grunt.loadNpmTasks('grunt-prompt');
+  grunt.loadNpmTasks('grunt-responsive-images');
+  grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-scp');
 
   // Default task.
   grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep', 'test', 'browserify', 'serve',
@@ -269,7 +377,28 @@ module.exports = function(grunt) {
 
   // sub tasks
   grunt.registerTask('serve', ['php:mailserver', 'configureProxies:site', 'connect:site']);
-  grunt.registerTask('imageprep', ['newer:responsive_images:backgrounds', 'newer:imagemin:backgrounds']);
+  grunt.registerTask('imageprep', ['newer:responsive_images', 'newer:imagemin']);
   grunt.registerTask('test', ['jshint', 'karma:unit']);
 
+  grunt.registerTask('deploy', function () {
+    var version;
+    grunt.task.run('prompt', 'clean:deploy');
+    // if (grunt.config('deploy.env' === 'prod')) {
+    //   deploy.env
+    // }
+    bump = 'bump:' + grunt.config('deploy.bump');
+    scp = 'scp:'  + grunt.config('deploy.env');
+    grunt.task.run(bump, 'copy:deploy', 'cssmin', 'uglify', 'copy:release');
+    grunt.log.writeln('running ' + scp);
+  });
+
+  grunt.registerTask('promptbump', function () {
+    var version;
+    grunt.task.run('prompt:bump');
+    version = grunt.config('deploy.bump');
+    grunt.log.writeln('running bump:' + version);
+    grunt.task.run('bump:' + version);
+  });
+
 };
+
