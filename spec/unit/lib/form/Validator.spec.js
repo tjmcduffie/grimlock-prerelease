@@ -1,8 +1,10 @@
 /* jshint unused:false */
-/* global describe, xdescribe, it, xit, expect, beforeEach, afterEach, Validator */
+/* global describe, xdescribe, it, xit, expect, beforeEach, afterEach */
 'use strict';
 
-xdescribe('The Validator class tests objects representing form elements', function () {
+describe('The Validator class tests objects representing form elements', function () {
+
+  var Validator = require('../../../../src/js/lib/form/Validator');
 
   it('it checks whether a field is required', function () {
     expect(Validator.isRequired({required: true})).toEqual(true);
