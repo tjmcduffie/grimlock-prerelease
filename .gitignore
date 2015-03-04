@@ -23,5 +23,8 @@ vendor
 .sass-cache
 
 artifacts/reports
-src/img/resized
-public/js/grimlock-prerelease*.js
+deploy
+public/js
+public/css
+public/img
+public/index.php
