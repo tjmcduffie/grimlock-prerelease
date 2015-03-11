@@ -1,8 +1,23 @@
 /*global module:false*/
+var fs = require('fs');
+
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    config: {
+      deploy: {
+        root: 'deploy/build/public',
+        js: {
+          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.js',
+          path: '<%= config.deploy.root %>/js/'
+        },
+        css: {
+          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.css',
+          path: '<%= config.deploy.root %>/css/'
+        }
+      }
+    },
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
@@ -19,8 +34,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'public/js/<%= pkg.title || pkg.name %>.js': ['src/js/main.js'],
-          'src/js/polyfill/browserify/require.bs.js': ['src/js/polyfill/browserify/require.js']
+          'public/js/main.js': ['src/js/main.js']
         }
       }
     },
@@ -71,8 +85,7 @@ module.exports = function(grunt) {
         options: {
           port: 3001,
           hostname: '*',
-          base: ['public'],
-          directory: 'public',
+          base: 'public',
           debug: true,
           livereload: 3002,
           open: true,
@@ -213,13 +226,22 @@ module.exports = function(grunt) {
         }]
       },
       release: {
-        src: 'deploy/build',
-        dest: '<%= grunt.template.today("yyyy-mm-dd-hh::MM::ss") %>-v<%= pkg.version %>'
+        files: [{
+          expand: true,
+          cwd: 'deploy/build',
+          src: '{,**/}*',
+          dest: 'deploy/v<%= pkg.version %>'
+        }]
       }
     },
 
     clean: {
-      deploy: ['deploy/build'],
+      build: ['deploy/build'],
+      unnecessary: [
+        // 'deploy/build/public/{css,js}',
+        'deploy/build/public/index.php',
+        'deploy/build/src/{img,js,sass}'
+      ]
     },
 
     bump: {
@@ -232,46 +254,86 @@ module.exports = function(grunt) {
       bump: {
         options: {
           questions: [{
-            config: 'deploy.bump',
+            config: 'bump.increment',
             type: 'list',
             message: 'What type of release are you creating?',
             choices: ['patch', 'minor', 'major', 'prerelease', 'prepatch', 'preminor', 'premajor', 'git']
           }]
         }
       },
+
       deploy: {
         options: {
           questions: [{
-            config: 'deploy.env',
-            type: 'list',
-            message: 'What environment are you releasing to?',
-            choices: ['dev', 'prod']
-          },{
-            config: 'scp.options.username',
+            config: 'sshconfig.santoro.host',
             type: 'input',
-            message: 'Please enter the username for hte remote machine.'
+            message: 'Please enter the hostname of the server to deploying to'
+          },{
+            config: 'sshconfig.santoro.username',
+            type: 'input',
+            message: 'Please enter the username for the remote machine.'
+          },{
+            config: 'sshconfig.santoro.password',
+            type: 'password',
+            message: 'Please enter the password for the remote machine.'
+          },{
+            config: 'sftp.options.releaseDir',
+            type: 'list',
+            message: 'Choose a version to deploy',
+            choices: fs.readdirSync('./deploy')
+          }]
+        }
+      },
+
+      preview: {
+        options: {
+          questions: [{
+            config: 'preview.dir',
+            type: 'list',
+            message: 'Choose a version to deploy',
+            choices: fs.readdirSync('./deploy').filter(function(elem) { return elem !== 'build';})
           }]
         }
       }
     },
 
-    scp: {
+    sshconfig: {
+      'santoro': {
+        host: '',
+        username: '',
+        password: ''
+      }
+    },
+
+    sftp: {
       options: {
-        hostname: 'tmcduffie.com'
+        config: 'santoro',
+        showProgress: true,
+        releaseDir: 'build',
+        createDirectories: true,
+        srcBasePath: 'deploy/'
       },
-      prod: {
-        files: [{
-          cwd: 'deploy/<%= copy.release.dest %>',
-          src: '**/*',
-          dest: '~/timmcduffie.com/prerelease/<%= copy.release.dest %>'
-        }]
+      santoro: {
+        options: {
+          path: '/home/tjmcduff/<%= sshconfig.santoro.host %>/prerelease'
+        },
+        files: {
+          './': 'deploy/<%= sftp.options.releaseDir %>/{,**/}*'
+        }
+      }
+    },
+
+    sshexec: {
+      options: {
+        config: 'santoro'
       },
-      dev: {
-        files: [{
-          cwd: 'deploy/<%= copy.release.dest %>',
-          src: '**/*',
-          dest: '~/dev.timmcduffie.com/prerelease/<%= copy.release.dest %>'
-        }]
+      symlinkSite: {
+        command: ['sh -c "cd <%= sshconfig.santoro.host %>; rm site; ln -s ' +
+            'prerelease/<%= sftp.options.releaseDir %>/public site;"']
+      },
+      symlinkLogs: {
+        command: ['sh -c "cd <%= sshconfig.santoro.host %>; cd prerelease/<%= sftp.options.releaseDir %>; ' +
+            'ln -s ../../logs logs;"']
       }
     },
 
@@ -286,23 +348,55 @@ module.exports = function(grunt) {
           drop_debugger: true,
           warnings: true
         }
-      },
-      clientjs: {
-        files: {
-          'deploy/public/js/<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.js':
-              ['deploy/public/js/<%= pkg.title || pkg.name %>.js']
-        }
       }
     },
 
     cssmin: {
       options: {
         report: 'gzip'
+      }
+    },
+
+    filerev: {
+      options: {
+
+      },
+      images: {
+        src: '<%= config.deploy.root %>/img/{,**/}*.{png,gif,jpg,jpeg}'
       },
       css: {
-        files: {
-          'deploy/public/css/<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.css':
-              ['deploy/public/css/ben.css']
+        src: '<%= config.deploy.root %>/css/{,**/}*.css'
+      },
+      js: {
+        src: '<%= config.deploy.root %>/js/{,**/}*.js'
+      }
+    },
+
+    useminPrepare: {
+      html: '<%= config.deploy.root %>/{,**/}*.html',
+      options: {
+        dest: '<%= config.deploy.root %>',
+        staging: '<%= config.deploy.root %>',
+        root: 'public'
+      }
+    },
+
+    usemin: {
+      html: '<%= config.deploy.root %>/{,**/}*.html',
+      html_srcset: '<%= usemin.html %>',
+      options: {
+        patterns: {
+          html_srcset: [
+            // [
+            //   /<img[^\>]*[^\>\S]+srcset=['"]([^"']+)["']/gm,
+            //   'Update the HTML with the new img filenames'
+            // ],
+            [
+              /<source[^\>]+srcset=['"]([^,"']+)((, )[^,"']+( \dx))["']/gm,
+              // /<source[^\>]+srcset=['"]((, )?([^, "']+( x[\d])?)["']/gm,
+              'Update the HTML with the new source filenames'
+            ]
+          ]
         }
       }
     },
@@ -362,6 +456,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-php');
@@ -369,36 +464,38 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-usemin');
-  grunt.loadNpmTasks('grunt-scp');
+  grunt.loadNpmTasks('grunt-ssh');
 
-  // Default task.
-  grunt.registerTask('default', ['bower', 'compass:dev', 'imageprep', 'test', 'browserify', 'serve',
-      'watch', 'cleanup']);
+  grunt.registerTask('preview-build', function () {
+    grunt.config.set('connect.build', grunt.config.get('connect.site'));
+    grunt.config.set('connect.build.options.base', 'deploy/build/public');
+    grunt.config.set('connect.build.options.keepalive', true);
+    grunt.config.set('connect.build.options.livereload', false);
+    grunt.config.set('connect.build.options.port', grunt.config.get('connect.build.options.port') + 5);
+    grunt.task.run(['connect:build']);
+  });
 
-  // sub tasks
-  grunt.registerTask('serve', ['php:mailserver', 'configureProxies:site', 'connect:site']);
-  grunt.registerTask('imageprep', ['newer:responsive_images', 'newer:imagemin']);
+  grunt.registerTask('preview-release', function () {
+    grunt.config.set('connect.preview', grunt.config.get('connect.build'));
+    grunt.config.set('connect.preview.options.base', '<%= config.deploy.root %>');
+    grunt.config.set('connect.preview.options.port', grunt.config.get('connect.preview.options.port') + 5);
+    grunt.task.run(['prompt:preview', 'connect:preview']);
+  });
+
+  grunt.registerTask('default', ['bower', 'compass:dev', 'newer:responsive_images', 'newer:imagemin',
+      'test', 'browserify', 'php:mailserver', 'configureProxies:site', 'connect:site', 'watch']);
+
   grunt.registerTask('test', ['jshint', 'karma:unit']);
 
-  grunt.registerTask('deploy', function () {
-    var version;
-    grunt.task.run('prompt', 'clean:deploy');
-    // if (grunt.config('deploy.env' === 'prod')) {
-    //   deploy.env
-    // }
-    bump = 'bump:' + grunt.config('deploy.bump');
-    scp = 'scp:'  + grunt.config('deploy.env');
-    grunt.task.run(bump, 'copy:deploy', 'cssmin', 'uglify', 'copy:release');
-    grunt.log.writeln('running ' + scp);
-  });
+  grunt.registerTask('create-build', ['clean:build', 'copy:deploy', 'clean:unnecessary',
+      'useminPrepare', 'concat:generated', 'cssmin:generated','uglify:generated', /*'filerev',*/ 'usemin']);
 
-  grunt.registerTask('promptbump', function () {
-    var version;
-    grunt.task.run('prompt:bump');
-    version = grunt.config('deploy.bump');
-    grunt.log.writeln('running bump:' + version);
-    grunt.task.run('bump:' + version);
-  });
+  grunt.registerTask('build', ['create-build', 'preview-build']);
+
+  grunt.registerTask('release', ['prompt:bump', 'bump', 'build', 'copy:release', 'preview-release']);
+
+  grunt.registerTask('deploy', ['prompt:deploy', 'sftp:santoro', 'sshexec:symlinkSite',
+      'sshexec:symlinkLogs']);
 
 };
 
