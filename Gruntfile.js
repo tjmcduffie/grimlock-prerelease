@@ -246,7 +246,8 @@ module.exports = function(grunt) {
 
     bump: {
       options: {
-        prereleaseName: 'rc'
+        prereleaseName: 'rc',
+        pushTo: 'origin'
       }
     },
 
@@ -254,7 +255,7 @@ module.exports = function(grunt) {
       bump: {
         options: {
           questions: [{
-            config: 'bump.increment',
+            config: 'bump.options.versionType',
             type: 'list',
             message: 'What type of release are you creating?',
             choices: ['patch', 'minor', 'major', 'prerelease', 'prepatch', 'preminor', 'premajor', 'git']
@@ -492,7 +493,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['create-build', 'preview-build']);
 
-  grunt.registerTask('release', ['prompt:bump', 'bump', 'build', 'copy:release', 'preview-release']);
+  grunt.registerTask('release', ['prompt:bump', 'bump', 'create-build', 'copy:release', 'preview-release']);
 
   grunt.registerTask('deploy', ['prompt:deploy', 'sftp:santoro', 'sshexec:symlinkSite',
       'sshexec:symlinkLogs']);
