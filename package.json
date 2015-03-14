@@ -1,6 +1,6 @@
 {
   "name": "grimlock-prerelease",
-  "version": "0.2.1-rc.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.html",
   "dependencies": {},
