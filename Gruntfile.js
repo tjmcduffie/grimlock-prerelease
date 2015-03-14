@@ -230,7 +230,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'deploy/build',
           src: '{,**/}*',
-          dest: 'deploy/v<%= pkg.version %>'
+          dest: 'deploy/v<%= grunt.file.readJSON("package.json").version %>'
         }]
       }
     },
@@ -291,7 +291,7 @@ module.exports = function(grunt) {
           questions: [{
             config: 'preview.dir',
             type: 'list',
-            message: 'Choose a version to deploy',
+            message: 'Choose a version to preview',
             choices: fs.readdirSync('./deploy').filter(function(elem) { return elem !== 'build';})
           }]
         }
@@ -479,6 +479,7 @@ module.exports = function(grunt) {
   grunt.registerTask('preview-release', function () {
     grunt.config.set('connect.preview', grunt.config.get('connect.build'));
     grunt.config.set('connect.preview.options.base', '<%= config.deploy.root %>');
+    grunt.config.set('connect.preview.options.livereload', false);
     grunt.config.set('connect.preview.options.port', grunt.config.get('connect.preview.options.port') + 5);
     grunt.task.run(['prompt:preview', 'connect:preview']);
   });
