@@ -213,6 +213,10 @@ ul {
   }
 }
 
+.grid-bkgd {
+  background: repeat inline-image("backgrounds/bkgd-grid.png") center;
+}
+
 /**
  * FONTS
  */
@@ -356,8 +360,8 @@ ul {
     margin: 0;
 
     @include when-breakpoint("large") {
-      margin-bottom: 9px;
-      margin-top: 10px;
+      margin-bottom: 20px;
+      margin-top: 20px;
     }
 
     h1 {
@@ -378,7 +382,6 @@ ul {
       @include when-breakpoint("medium") {
         @include adjust-font-size-to(1.75 * $base-font-size);
         @include adjust-leading-to(.972222);
-        margin: 6px 0;
       }
     }
   }
@@ -570,6 +573,7 @@ ul {
  * TITLE
  */
 .title {
+  background: repeat inline-image("backgrounds/bkgd-grid-dark.png") center;
   background-color: $white;
 
   .block {
@@ -743,6 +747,7 @@ ul {
  * WORK
  */
 .work {
+  background: repeat inline-image("backgrounds/bkgd-grid-light.png") center;
   background-color: $darkgrey;
   color: $white;
 
