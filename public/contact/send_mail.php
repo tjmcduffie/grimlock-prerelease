@@ -5,6 +5,8 @@ require '../../src/php/MailResults.php';
 
 $logger = new Katzgrau\KLogger\Logger(dirname(dirname(dirname(__FILE__))).'/logs');
 
+$config = json_decode(utf8_encode(file_get_contents('../../src/config/config.json')));
+
 date_default_timezone_set('Etc/UTC');
 header('Content-Type: application/json');
 
@@ -79,11 +81,23 @@ if ($results->hasErrors() === true)
  * Configure and send the email
  */
 $mail = new PHPMailer;
-$mail->isSendmail();
 
-$mail->setFrom($email, $name);
-$mail->addAddress('contact@timmcduffie.com', 'Tim McDuffie');
-$mail->Subject = 'Website contact from: ' . $name;
+$mail->SMTPDebug = 0;
+$mail->isSMTP();
+
+$mail->SMTPAuth = true;
+$mail->Port = 587;
+$mail->SMTPSecure = 'tls';
+$mail->Host = $config->email->host;
+$mail->Username = $config->email->username;
+$mail->Password = $config->email->password;
+
+$mail->From = $config->email->fromemail;
+$mail->FromName = 'tmcd.com Contact Form';
+$mail->addAddress($config->email->recipient, 'Tim McDuffie');
+$mail->addReplyTo($email, $name);
+$mail->Subject = 'Website contact from: ' . $name . ' <' . $email . '>';
+$mail->isHTML(false);
 $mail->Body = $message;
 
 http_response_code(200);

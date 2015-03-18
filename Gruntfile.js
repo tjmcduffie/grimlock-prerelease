@@ -262,7 +262,6 @@ module.exports = function(grunt) {
           }]
         }
       },
-
       deploy: {
         options: {
           questions: [{
@@ -285,7 +284,31 @@ module.exports = function(grunt) {
           }]
         }
       },
-
+      configure: {
+        options: {
+          questions: [{
+            config: 'config.secret.email.host',
+            type: 'input',
+            message: 'Please enter the hostname of the mail server'
+          }, {
+            config: 'config.secret.email.username',
+            type: 'input',
+            message: 'Please enter the SMTP account username'
+          }, {
+            config: 'config.secret.email.password',
+            type: 'password',
+            message: 'Please enter the SMTP account password'
+          }, {
+            config: 'config.secret.email.fromemail',
+            type: 'input',
+            message: 'Please enter the email address from which the message will send'
+          }, {
+            config: 'config.secret.email.recipient',
+            type: 'input',
+            message: 'Please enter the email address of the recipient'
+          }]
+        }
+      },
       preview: {
         options: {
           questions: [{
@@ -467,6 +490,21 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-ssh');
 
+  grunt.registerTask('config', function () {
+    var secret;
+    try {
+      grunt.config.set('config.secret', grunt.file.readJSON('src/config/config.json'));
+    } catch (e) {
+      grunt.task.run(['prompt:configure', 'write-config']);
+    }
+  });
+
+  grunt.registerTask('write-config', function () {
+    var data = grunt.config.get('config.secret');
+    console.log(data);
+    grunt.file.write('src/config/config.json', JSON.stringify(data));
+  });
+
   grunt.registerTask('preview-build', function () {
     grunt.config.set('connect.build', grunt.config.get('connect.site'));
     grunt.config.set('connect.build.options.base', 'deploy/build/public');
@@ -477,8 +515,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('preview-release', function () {
-    grunt.config.set('connect.preview', grunt.config.get('connect.build'));
+    grunt.config.set('connect.preview', grunt.config.get('connect.site'));
     grunt.config.set('connect.preview.options.base', '<%= config.deploy.root %>');
+    grunt.config.set('connect.preview.options.keepalive', true);
     grunt.config.set('connect.preview.options.livereload', false);
     grunt.config.set('connect.preview.options.port', grunt.config.get('connect.preview.options.port') + 5);
     grunt.task.run(['prompt:preview', 'connect:preview']);
@@ -494,7 +533,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['create-build', 'preview-build']);
 
-  grunt.registerTask('release', ['prompt:bump', 'bump', 'create-build', 'copy:release', 'preview-release']);
+  grunt.registerTask('release', ['prompt:bump', 'bump', 'create-build', 'copy:release']);
 
   grunt.registerTask('deploy', ['prompt:deploy', 'sftp:santoro', 'sshexec:symlinkSite',
       'sshexec:symlinkLogs']);
