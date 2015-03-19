@@ -5,26 +5,22 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    config: {
-      deploy: {
-        root: 'deploy/build/public',
-        js: {
-          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.js',
-          path: '<%= config.deploy.root %>/js/'
-        },
-        css: {
-          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.css',
-          path: '<%= config.deploy.root %>/css/'
-        }
-      }
-    },
-    // Metadata.
-    pkg: grunt.file.readJSON('package.json'),
+
     banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;*/\n',
-    // Task configuration.
+
+    bower: {
+      client: {
+        dest: 'src/sass/vendor',
+        js_dest: 'src/js/vendor',
+        css_dest: 'public/css/vendor',
+        options: {
+          ignorePackages: ['jasmine']
+        }
+      }
+    },
 
     browserify: {
       options: {
@@ -39,21 +35,20 @@ module.exports = function(grunt) {
       }
     },
 
-    jshint: {
-      options: grunt.file.readJSON('.jshintrc'),
-      gruntfile: {
-        src: ['Gruntfile.js']
-      },
-      client: {
-        src: ['src/js/{,**/}*.js', '!src/js/{vendor,polyfill}/{,**/}*.js']
-      },
-      spec: {
-        options: {
-          browser: true,
-          undef: false
-        },
-        src: 'spec/{,**/}*.js'
+    bump: {
+      options: {
+        prereleaseName: 'rc',
+        pushTo: 'origin'
       }
+    },
+
+    clean: {
+      build: ['deploy/build'],
+      unnecessary: [
+        // 'deploy/build/public/{css,js}',
+        'deploy/build/public/index.php',
+        'deploy/build/src/{img,js,sass}'
+      ]
     },
 
     compass: {
@@ -76,6 +71,20 @@ module.exports = function(grunt) {
         options: {
           noLineComments: true,
           debugInfo: false
+        }
+      }
+    },
+
+    config: {
+      deploy: {
+        root: 'deploy/build/public',
+        js: {
+          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.js',
+          path: '<%= config.deploy.root %>/js/'
+        },
+        css: {
+          filename: '<%= pkg.title || pkg.name %>-<%= pkg.version %>.min.css',
+          path: '<%= config.deploy.root %>/css/'
         }
       }
     },
@@ -106,13 +115,70 @@ module.exports = function(grunt) {
       }
     },
 
-    php: {
-      mailserver: {
+    copy: {
+      deploy: {
+        files: [{
+          expand: true,
+          src: ['public/**', 'vendor/**', 'src/**'],
+          dest: 'deploy/build'
+        }]
+      },
+      release: {
+        files: [{
+          expand: true,
+          cwd: 'deploy/build',
+          src: '{,**/}*',
+          dest: 'deploy/v<%= grunt.file.readJSON("package.json").version %>'
+        }]
+      }
+    },
+
+    cssmin: {
+      options: {
+        report: 'gzip'
+      }
+    },
+
+    filerev: {
+      options: {
+
+      },
+      images: {
+        src: '<%= config.deploy.root %>/img/{,**/}*.{png,gif,jpg,jpeg}'
+      },
+      css: {
+        src: '<%= config.deploy.root %>/css/{,**/}*.css'
+      },
+      js: {
+        src: '<%= config.deploy.root %>/js/{,**/}*.js'
+      }
+    },
+
+    imagemin: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: 'src/img/to-optimize',
+          src: '{,**/}*.{png,jpg,gif}',
+          dest: 'public/img'
+        }]
+      }
+    },
+
+    jshint: {
+      options: grunt.file.readJSON('.jshintrc'),
+      gruntfile: {
+        src: ['Gruntfile.js']
+      },
+      client: {
+        src: ['src/js/{,**/}*.js', '!src/js/{vendor,polyfill}/{,**/}*.js']
+      },
+      spec: {
         options: {
-          hostname: '127.0.0.1',
-          port: 3003,
-          base: 'public'
-        }
+          browser: true,
+          undef: false
+        },
+        src: 'spec/{,**/}*.js'
       }
     },
 
@@ -148,108 +214,17 @@ module.exports = function(grunt) {
       }
     },
 
-    bower: {
-      client: {
-        dest: 'src/sass/vendor',
-        js_dest: 'src/js/vendor',
-        css_dest: 'public/css/vendor',
+    php: {
+      mailserver: {
         options: {
-          ignorePackages: ['jasmine']
+          hostname: '127.0.0.1',
+          port: 3003,
+          base: 'public'
         }
       }
     },
 
-    responsive_images: {
-      favicon: {
-        options: {
-          newFilesOnly: false,
-          sizes: [
-            {name: '32', width: 32, quality: 32},
-            {name: '57', width: 57, quality: 57},
-            {name: '72', width: 72, quality: 72},
-            {name: '96', width: 96, quality: 96},
-            {name: '120', width: 120, quality: 120},
-            {name: '128', width: 128, quality: 128},
-            {name: '144', width: 144, quality: 144},
-            {name: '152', width: 152, quality: 152},
-            {name: '195', width: 195, quality: 195},
-            {name: '228', width: 228, quality: 228}
-          ]
-        },
-        files: [{
-          expand: true,
-          cwd: 'src/img/to-resize/favicon/',
-          src: '{,**/}*',
-          dest: 'src/img/to-optimize/favicon'
-        }]
-      },
-      content: {
-        options: {
-          newFilesOnly: false,
-          sizes: [
-            {name: 'xlarge-2x', width: 3264, quality: 30},
-            {name: 'xlarge-1x', width: 1632, quality: 30},
-            {name: 'large-2x', width: 2560, quality: 30},
-            {name: 'large-1x', width: 1280, quality: 30},
-            {name: 'medium-2x', width: 1536, quality: 30},
-            {name: 'medium-1x', width: 768, quality: 30},
-            {name: 'small-2x', width: 960, quality: 30},
-            {name: 'small-1x', width: 480, quality: 30}
-          ]
-        },
-        files: [{
-          expand: true,
-          cwd: 'src/img/to-resize/work',
-          src: '{,**/}*',
-          dest: 'src/img/to-optimize/work'
-        }]
-      }
-    },
-
-    imagemin: {
-      all: {
-        files: [{
-          expand: true,
-          cwd: 'src/img/to-optimize',
-          src: '{,**/}*.{png,jpg,gif}',
-          dest: 'public/img'
-        }]
-      }
-    },
-
-    copy: {
-      deploy: {
-        files: [{
-          expand: true,
-          src: ['public/**', 'vendor/**', 'src/**'],
-          dest: 'deploy/build'
-        }]
-      },
-      release: {
-        files: [{
-          expand: true,
-          cwd: 'deploy/build',
-          src: '{,**/}*',
-          dest: 'deploy/v<%= grunt.file.readJSON("package.json").version %>'
-        }]
-      }
-    },
-
-    clean: {
-      build: ['deploy/build'],
-      unnecessary: [
-        // 'deploy/build/public/{css,js}',
-        'deploy/build/public/index.php',
-        'deploy/build/src/{img,js,sass}'
-      ]
-    },
-
-    bump: {
-      options: {
-        prereleaseName: 'rc',
-        pushTo: 'origin'
-      }
-    },
+    pkg: grunt.file.readJSON('package.json'),
 
     prompt: {
       bump: {
@@ -321,11 +296,50 @@ module.exports = function(grunt) {
       }
     },
 
-    sshconfig: {
-      'santoro': {
-        host: '',
-        username: '',
-        password: ''
+    responsive_images: {
+      favicon: {
+        options: {
+          newFilesOnly: false,
+          sizes: [
+            {name: '32', width: 32, quality: 32},
+            {name: '57', width: 57, quality: 57},
+            {name: '72', width: 72, quality: 72},
+            {name: '96', width: 96, quality: 96},
+            {name: '120', width: 120, quality: 120},
+            {name: '128', width: 128, quality: 128},
+            {name: '144', width: 144, quality: 144},
+            {name: '152', width: 152, quality: 152},
+            {name: '195', width: 195, quality: 195},
+            {name: '228', width: 228, quality: 228}
+          ]
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/img/to-resize/favicon/',
+          src: '{,**/}*',
+          dest: 'src/img/to-optimize/favicon'
+        }]
+      },
+      content: {
+        options: {
+          newFilesOnly: false,
+          sizes: [
+            {name: 'xlarge-2x', width: 3264, quality: 30},
+            {name: 'xlarge-1x', width: 1632, quality: 30},
+            {name: 'large-2x', width: 2560, quality: 30},
+            {name: 'large-1x', width: 1280, quality: 30},
+            {name: 'medium-2x', width: 1536, quality: 30},
+            {name: 'medium-1x', width: 768, quality: 30},
+            {name: 'small-2x', width: 960, quality: 30},
+            {name: 'small-1x', width: 480, quality: 30}
+          ]
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/img/to-resize/work',
+          src: '{,**/}*',
+          dest: 'src/img/to-optimize/work'
+        }]
       }
     },
 
@@ -344,6 +358,14 @@ module.exports = function(grunt) {
         files: {
           './': 'deploy/<%= sftp.options.releaseDir %>/{,**/}*'
         }
+      }
+    },
+
+    sshconfig: {
+      'santoro': {
+        host: '',
+        username: '',
+        password: ''
       }
     },
 
@@ -375,36 +397,6 @@ module.exports = function(grunt) {
       }
     },
 
-    cssmin: {
-      options: {
-        report: 'gzip'
-      }
-    },
-
-    filerev: {
-      options: {
-
-      },
-      images: {
-        src: '<%= config.deploy.root %>/img/{,**/}*.{png,gif,jpg,jpeg}'
-      },
-      css: {
-        src: '<%= config.deploy.root %>/css/{,**/}*.css'
-      },
-      js: {
-        src: '<%= config.deploy.root %>/js/{,**/}*.js'
-      }
-    },
-
-    useminPrepare: {
-      html: '<%= config.deploy.root %>/{,**/}*.html',
-      options: {
-        dest: '<%= config.deploy.root %>',
-        staging: '<%= config.deploy.root %>',
-        root: 'public'
-      }
-    },
-
     usemin: {
       html: '<%= config.deploy.root %>/{,**/}*.html',
       html_srcset: '<%= usemin.html %>',
@@ -422,6 +414,15 @@ module.exports = function(grunt) {
             ]
           ]
         }
+      }
+    },
+
+    useminPrepare: {
+      html: '<%= config.deploy.root %>/{,**/}*.html',
+      options: {
+        dest: '<%= config.deploy.root %>',
+        staging: '<%= config.deploy.root %>',
+        root: 'public'
       }
     },
 
@@ -491,7 +492,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ssh');
 
   grunt.registerTask('config', function () {
-    var secret;
     try {
       grunt.config.set('config.secret', grunt.file.readJSON('src/config/config.json'));
     } catch (e) {
