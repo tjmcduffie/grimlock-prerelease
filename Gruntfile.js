@@ -176,7 +176,9 @@ module.exports = function(grunt) {
       spec: {
         options: {
           browser: true,
-          undef: false
+          undef: false,
+          unused: false,
+          jasmine: true
         },
         src: 'spec/{,**/}*.js'
       }
@@ -436,14 +438,14 @@ module.exports = function(grunt) {
       },
       clientjs: {
         files: '<%= jshint.client.src %>',
-        tasks: ['jshint:client', 'karma', 'browserify'],
+        tasks: ['jshint:client', 'karma:unit', 'browserify'],
         options: {
           livereload: true
         }
       },
       spec: {
         files: '<%= jshint.spec.src %>',
-        tasks: ['jshint:spec', 'karma']
+        tasks: ['jshint:spec', 'karma:unit']
       },
       livereload: {
         options: {
