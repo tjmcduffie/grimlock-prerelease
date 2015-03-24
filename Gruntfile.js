@@ -95,7 +95,7 @@ module.exports = function(grunt) {
           port: 3001,
           hostname: '*',
           base: 'public',
-          debug: true,
+          debug: false,
           livereload: 3002,
           open: true,
           middleware: function (/*connect, options, middlewares*/) {
@@ -180,7 +180,24 @@ module.exports = function(grunt) {
           unused: false,
           jasmine: true
         },
-        src: 'spec/{,**/}*.js'
+        src: 'spec/unit/{,**/}*.js'
+      },
+      e2e: {
+        options: {
+          browser: true,
+          undef: false,
+          unused: false,
+          jasmine: true,
+          globals: {
+            xdescribe: true,
+            xit: true,
+            protractor: true,
+            browser: true,
+            by: true,
+            element: true
+          }
+        },
+        src: '<%= protractor.options.args.specs %>'
       }
     },
 
@@ -258,6 +275,11 @@ module.exports = function(grunt) {
             type: 'list',
             message: 'Choose a version to deploy',
             choices: fs.readdirSync('./deploy')
+          },{
+            config: 'protractor.deploy.options.args.baseUrl',
+            type: 'list',
+            message: 'Choose the environment to test',
+            choices: ['http://www.timmcduffie.com', 'http://dev.timmcduffie.com']
           }]
         }
       },
@@ -298,10 +320,45 @@ module.exports = function(grunt) {
       }
     },
 
+    protractor: {
+      options: {
+        configFile: 'protractor-e2e.js',
+        keepAlive: false,
+        args: {
+          baseUrl: 'http://127.0.0.1:3001/',
+          specs: [ 'spec/integration/*/*' ],
+          includeStackTrace: true,
+          verbose: false,
+          browser: 'chrome'
+        }
+      },
+      e2e: {
+        options: {}
+      },
+      build: {
+        options: {
+          args: {
+            baseUrl: 'http://127.0.0.1:' + grunt.config.get('connect.site.options.port') + 5 + '/',
+            specs: [ 'spec/integration/*/*' ],
+            browser: 'chrome'
+          }
+        }
+      },
+      deploy: {
+        options: {
+          args: {
+            baseUrl: 'http://dev.timmcduffie.com',
+            specs: [ 'spec/integration/*/*' ],
+            browser: 'chrome'
+          }
+        }
+      }
+    },
+
     responsive_images: {
       favicon: {
         options: {
-          newFilesOnly: false,
+          newFilesOnly: true,
           sizes: [
             {name: '32', width: 32, quality: 32},
             {name: '57', width: 57, quality: 57},
@@ -324,7 +381,7 @@ module.exports = function(grunt) {
       },
       content: {
         options: {
-          newFilesOnly: false,
+          newFilesOnly: true,
           sizes: [
             {name: 'xlarge-2x', width: 3264, quality: 30},
             {name: 'xlarge-1x', width: 1632, quality: 30},
@@ -443,6 +500,10 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
+      e2e: {
+        files: '<%= jshint.e2e.src %>',
+        tasks: ['jshint:e2e', 'protractor:e2e']
+      },
       spec: {
         files: '<%= jshint.spec.src %>',
         tasks: ['jshint:spec', 'karma:unit']
@@ -488,6 +549,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-php');
   grunt.loadNpmTasks('grunt-prompt');
+  grunt.loadNpmTasks('grunt-protractor-runner');
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-usemin');
@@ -530,15 +592,17 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint', 'karma:unit']);
 
+  grunt.registerTask('test-e2e', ['protractor:e2e']);
+
   grunt.registerTask('create-build', ['clean:build', 'copy:deploy', 'clean:unnecessary',
       'useminPrepare', 'concat:generated', 'cssmin:generated','uglify:generated', /*'filerev',*/ 'usemin']);
 
-  grunt.registerTask('build', ['create-build', 'preview-build']);
+  grunt.registerTask('build', ['create-build', 'preview-build', 'protractor:build']);
 
   grunt.registerTask('release', ['prompt:bump', 'bump', 'create-build', 'copy:release']);
 
   grunt.registerTask('deploy', ['prompt:deploy', 'sftp:santoro', 'sshexec:symlinkSite',
-      'sshexec:symlinkLogs']);
+      'sshexec:symlinkLogs', 'protractor:deploy']);
 
 };
 
