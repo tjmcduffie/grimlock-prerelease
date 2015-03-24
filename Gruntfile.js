@@ -338,7 +338,7 @@ module.exports = function(grunt) {
       build: {
         options: {
           args: {
-            baseUrl: 'http://127.0.0.1:' + grunt.config.get('connect.site.options.port') + 5 + '/',
+            baseUrl: 'http://127.0.0.1:3006/',
             specs: [ 'spec/integration/*/*' ],
             browser: 'chrome'
           }
@@ -575,7 +575,7 @@ module.exports = function(grunt) {
     grunt.config.set('connect.build.options.keepalive', true);
     grunt.config.set('connect.build.options.livereload', false);
     grunt.config.set('connect.build.options.port', grunt.config.get('connect.build.options.port') + 5);
-    grunt.task.run(['connect:build']);
+    grunt.task.run(['php:mailserver', 'configureProxies:build', 'connect:build']);
   });
 
   grunt.registerTask('preview-release', function () {
@@ -584,7 +584,7 @@ module.exports = function(grunt) {
     grunt.config.set('connect.preview.options.keepalive', true);
     grunt.config.set('connect.preview.options.livereload', false);
     grunt.config.set('connect.preview.options.port', grunt.config.get('connect.preview.options.port') + 5);
-    grunt.task.run(['prompt:preview', 'connect:preview']);
+    grunt.task.run(['prompt:preview', 'php:mailserver', 'configureProxies:preview', 'connect:preview']);
   });
 
   grunt.registerTask('default', ['bower', 'compass:dev', 'newer:responsive_images', 'newer:imagemin',
