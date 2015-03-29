@@ -45,15 +45,16 @@ $darkgrey: rgba(51, 51, 51, 1);
 /**
  * ELEMENTS
  */
-
 html, body {
   margin: 0;
   padding: 0;
+  font-family: $body-font;
+  font-weight: 300;
 }
 
 h1 {
   font-family: $headline-font;
-  font-weight: 300;
+  font-weight: 700;
 }
 
 h2,
@@ -63,7 +64,7 @@ h5,
 h6 {
   font-family: $headline-font;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 h3 {
@@ -83,11 +84,28 @@ ul {
   padding-left: 20px;
 }
 
+input, textarea, keygen, select, button {
+  font-family: $body-font;
+  font-weight: 300;
+}
+
+
+/**
+ * FONTS
+ */
+.wf-loading {
+  h1, h2, h3, h4, h5, h6,
+  p, a, span,
+  li, dt, dd,
+  label {
+    visibility: hidden;
+  }
+}
+
 
 /**
  * CLASSES
  */
-
 .screenreader-only {
   left: -10000px;
   height: 1px;
@@ -104,8 +122,7 @@ ul {
   text-transform: uppercase;
 
   @include when-breakpoint("medium") {
-    @include adjust-font-size-to($project-title);
-    @include adjust-leading-to(1.875);
+    @include adjust-font-size-to($project-title, 1.875);
   }
 }
 
@@ -117,15 +134,14 @@ ul {
   text-transform: uppercase;
 
   @include when-breakpoint("medium") {
-    @include adjust-font-size-to($small-title);
-    @include adjust-leading-to(.416667);
+    @include adjust-font-size-to($small-title, .416667);
     margin-bottom: 20px;
     margin-top: -35px;
   }
 
   @include when-breakpoint("medium") {
     margin-bottom: 40px;
-    margin-top: -55px;
+    margin-top: -50px;
   }
 }
 
@@ -217,21 +233,11 @@ ul {
   background: repeat inline-image("backgrounds/bkgd-grid.png") center;
 }
 
-/**
- * FONTS
- */
-.wf-loading {
-  p, a, span, h1, h2, h3, h4, h5, h6, li, dt, dd, label {
-    visibility: hidden;
-  }
-}
-
 
 
 /**
  * GRID
  */
-
 .block {
   @include container;
   overflow: hidden;
@@ -368,8 +374,7 @@ ul {
       background: no-repeat inline-image("logo.png") center left;
       background-size: contain;
       color: $green;
-      @include adjust-font-size-to(1.25 * $base-font-size);
-      @include adjust-leading-to(.694444);
+      @include adjust-font-size-to(1.25 * $base-font-size, .694444);
       margin: 0;
       padding-left: 15px;
       text-transform: uppercase;
@@ -380,8 +385,7 @@ ul {
       }
 
       @include when-breakpoint("medium") {
-        @include adjust-font-size-to(1.75 * $base-font-size);
-        @include adjust-leading-to(.972222);
+        @include adjust-font-size-to(1.75 * $base-font-size, .972222);
       }
     }
   }
@@ -390,13 +394,10 @@ ul {
     display: none;
     clear: both;
     font-family: $nav-font;
+    font-weight: 700;
     @include adjust-font-size-to($nav-font-size);
     margin-bottom: 10px;
     text-transform: lowercase;
-
-    @include when-breakpoint-only("small") {
-      font-weight: bold;
-    }
 
     @include when-breakpoint("large") {
       clear: none;
@@ -440,7 +441,7 @@ ul {
     }
   }
 
-  $hamburger-size: 40px;
+  $hamburger-size: 20px;
   $patty-size: 4px;
   $patty-distance: 8px;
 
@@ -453,12 +454,11 @@ ul {
 
   .hamburger {
     display: inline-block;
-    height: $hamburger-size/2;
-    margin-bottom: -$patty-size;
-    width: $hamburger-size;
+    height: $hamburger-size;
+    width: $hamburger-size * 2;
 
     @include when-breakpoint("medium") {
-      height: $hamburger-size;
+      height: $hamburger-size * 1.6;
     }
 
     @include when-breakpoint("large") {
@@ -467,11 +467,11 @@ ul {
 
     .patty {
       @include hamburger-layer();
-      @include transform(translateY((($hamburger-size/2) - ($patty-size/2))/2));
+      @include transform(translateY((($hamburger-size) - ($patty-size/2))/2));
       @include single-transition(background-color, 500ms);
 
       @include when-breakpoint("medium") {
-        @include transform(translateY((($hamburger-size/2) - ($patty-size/2))));
+        @include transform(translateY((($hamburger-size * .8) - ($patty-size/2))));
       }
 
       &::before, &::after {
@@ -523,7 +523,7 @@ ul {
 
   @include when-below-breakpoint('large') {
     &.expanded {
-      background-color: transparentize($green, 0.07);
+      background-color: transparentize($green, 0.03);
       height: 100%;
 
       .block {
@@ -544,6 +544,10 @@ ul {
       nav {
         display: block;
         padding-top: 25px;
+
+        a {
+          background-color: transparent;
+        }
       }
 
       .hamburger {
@@ -611,21 +615,22 @@ ul {
   h1 {
     color: $green;
     display: inline-block;
-    @include adjust-font-size-to(2.4 * $base-font-size);
-    @include adjust-leading-to(1.319444);
+    @include adjust-font-size-to(2.4 * $base-font-size, 1.319444);
     margin: 0;
     text-transform: uppercase;
 
     @include when-breakpoint("medium") {
-      @include adjust-font-size-to($h1-font-size);
+      @include adjust-font-size-to($h1-font-size, 2);
     }
   }
 
   .subtitle {
     color: $darkgrey;
     display: block;
+    font-family: $body-font;
+    font-weight: 400;
     @include adjust-font-size-to(.85 * $base-font-size);
-    @include adjust-leading-to(.472222);
+    @include adjust-leading-to(.472222, .85 * $base-font-size);
 
     &::before {
       content: '';
@@ -651,8 +656,7 @@ ul {
   color: $darkgrey;
 
   .summary {
-    @include adjust-font-size-to($about-summary * .75);
-    @include adjust-leading-to(1.15);
+    @include adjust-font-size-to($about-summary * .75, 1.15);
 
     @include when-breakpoint("medium") {
       @include adjust-font-size-to($about-summary);
@@ -663,6 +667,7 @@ ul {
       background: no-repeat inline-image("icons/cv-icon.png")  center left;
       color: $green;
       display: block;
+      font-family: $headline-font;
       font-weight: bold;
       margin-top: .5rem;
       padding-left: 30px;
@@ -676,7 +681,7 @@ ul {
 
   .detail {
     color: $midgrey;
-    @include adjust-font-size-to($h3-font-size);
+    @include adjust-font-size-to($h3-font-size, 1.2);
 
     @include when-breakpoint("medium") {
       margin-top: 50px;
@@ -768,9 +773,12 @@ ul {
   }
 
   .site-link {
+    margin: -8px 0 0 0;
 
     a {
       color: $green;
+      display: inline-block;
+      font-weight: bold;
       text-decoration: none;
       text-transform: uppercase;
       white-space: nowrap;
