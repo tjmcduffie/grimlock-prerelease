@@ -912,15 +912,24 @@ input, textarea, keygen, select, button {
   }
 
   .submit-button {
-    @extend .button;
-    @extend .button-dark-grey;
-    display: inline-block;;
+    display: inline-block;
+    position: relative;
+
+    &::before {
+      @extend .button::before;
+      @extend .button-dark-grey::before;
+
+      z-index: 5;
+    }
   }
 
   input[type="submit"] {
+    @extend .button;
     @extend .button-dark-grey;
+    cursor: pointer;
+    display: inline-block;
     border: 0;
-    text-transform: inherit;
+    text-transform: uppercase;
   }
 }
 
