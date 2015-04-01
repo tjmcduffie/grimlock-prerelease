@@ -11,6 +11,8 @@ describe('The contact form allows the user to contact me', function () {
   beforeEach(function () {
     browser.driver.manage().window().setSize(1000, 3000);
     browser.get('/index.html');
+    browser.driver.wait(element(by.id('title')).element(by.tagName('h1')).isDisplayed, 1550,
+      'Fonts faild to show up');
     contact = element(by.id('contact'));
     form = contact.element(by.tagName('form'));
     inputName = form.element(by.id('name'));

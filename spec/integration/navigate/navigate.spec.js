@@ -38,6 +38,8 @@ describe('The navigation element', function () {
     beforeEach(function () {
       browser.driver.manage().window().setSize(1000, 600);
       browser.get('/index.html');
+      browser.driver.wait(element(by.id('title')).element(by.tagName('h1')).isDisplayed, 1550,
+      'Fonts faild to show up');
     });
 
     it('should have three visible options', function() {
