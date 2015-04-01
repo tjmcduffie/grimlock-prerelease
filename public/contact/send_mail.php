@@ -109,7 +109,7 @@ http_response_code(200);
 if(!$mail->send())
 {
   http_response_code(500);
-  $results->addError('We encountered an unexpected are unable to send your message. Please try again.');
+  $results->addError('We encountered an unexpected error and are unable to send your message. Please try again.');
   $logger->error('Mail failed to send', array($mail->ErrorInfo));
 }
 
