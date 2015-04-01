@@ -26,10 +26,10 @@ AjaxForm.prototype.constructor = AjaxForm;
 AjaxForm.prototype.Super_ = Form;
 
 
-AjaxForm.prototype.handleSumbit_ = function (e) {
+AjaxForm.prototype.handleSubmit_ = function (e) {
   e.preventDefault(e);
 
-  this.Super_.prototype.handleSumbit_.call(this, e);
+  this.Super_.prototype.handleSubmit_.call(this, e);
 
   if (this.errors.length === 0) {
     this.xhr_ = new XMLHttpRequest();

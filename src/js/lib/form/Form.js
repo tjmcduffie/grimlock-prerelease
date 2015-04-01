@@ -12,7 +12,7 @@ var Form = function (formElement) {
   this.inputs_ = this.elem.querySelectorAll('input, textarea, select');
   this.eventEmitter_ = new EventEmitter();
 
-  this.elem.addEventListener('submit', this.handleSumbit_.bind(this));
+  this.elem.addEventListener('submit', this.handleSubmit_.bind(this));
 };
 
 Form.events = {
@@ -21,7 +21,7 @@ Form.events = {
   VALIDATE_FAIL: 'validate.fail'
 };
 
-Form.prototype.handleSumbit_ = function (e) {
+Form.prototype.handleSubmit_ = function (e) {
   this.errors = [];
   this.eventEmitter_.emit(Form.events.HANDLE_SUBMIT, e);
 
@@ -39,9 +39,9 @@ Form.prototype.isValid_ = function() {
     var type = null;
 
     if (Validator.isRequired(elem) && !Validator.isPopulated(elem)) {
-      type = FormError.tpye.REQUIREMENT;
+      type = FormError.types.REQUIREMENT;
     } else if (Validator.hasPattern(elem) && !Validator.isMatchingPattern(elem)) {
-      type = FormError.tpye.PATTERN;
+      type = FormError.types.PATTERN;
     }
 
     if (type) {
