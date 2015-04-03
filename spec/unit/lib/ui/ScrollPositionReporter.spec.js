@@ -1,5 +1,6 @@
+describe('Scroll position reporter', function() {
 
-xdescribe('Scroll position reporter', function() {
+  var ScrollPositionReporter = require('../../../../src/js/lib/ui/ScrollPositionReporter');
 
   // inject fixture
   var testDiv = document.createElement('div');

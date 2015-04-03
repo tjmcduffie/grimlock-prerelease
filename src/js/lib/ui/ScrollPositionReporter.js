@@ -130,3 +130,5 @@ ScrollPositionReporter.executeWhen = function(callback, position, axis) {
 
   return null;
 };
+
+module.exports = ScrollPositionReporter;
